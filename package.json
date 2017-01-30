@@ -1,6 +1,6 @@
 {
   "name": "ionic-audiobar",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Angular 2+ audio player",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/philmerrell/ionic-audiobar/issues"
   },
-  "homepage": "https://github.com/philmerrell/ionic-audiobar#readme"
+  "homepage": "https://github.com/philmerrell/ionic-audiobar#readme",
+  "devDependencies": {
+    "typescript": "^2.1.5",
+    "webpack": "^1.14.0"
+  }
 }
