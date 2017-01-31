@@ -15,10 +15,7 @@
     ]
   },
   "files": [
-    "dist/audiobar.module.ts"
-  ],
-  "include": [
-    "lib"
+    "src/audiobar.module.ts"
   ],
   "exclude": [
     "node_modules"
