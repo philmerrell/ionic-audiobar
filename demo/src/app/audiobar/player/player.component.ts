@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { AudioService } from '../services/audio.service';
 import { PlayerPositionService } from '../services/player-position.service';
@@ -35,7 +35,6 @@ export class PlayerComponent implements OnChanges, OnInit {
     this.getTimeRemaining();
     this.getPercentLoaded();
     this.getPercentElapsed();
-    this.getPlaylist();
     this.initPlayerPosition();
   }
 
@@ -80,15 +79,6 @@ export class PlayerComponent implements OnChanges, OnInit {
     this.audioService.getPlayerStatus()
       .debounceTime(100)
       .subscribe(status => this.playerStatus = status);
-  }
-
-  private getPlaylist() {
-    this.playlistService.getPlaylist()
-      .subscribe(playlist => {
-        this.playlist = playlist;
-        let length = this.playlist.length;
-        let progress = this.playlist.indexOf(this.currentTrack);
-      });
   }
 
   public seekAudio(event) {

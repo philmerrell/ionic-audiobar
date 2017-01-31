@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/Rx';
 import { Track } from './services/track.model';
 import { AudioService } from './services/audio.service';
 import { PlaylistService } from './services/playlist.service';
@@ -45,7 +44,9 @@ export class AudiobarComponent implements OnChanges, OnInit {
   private checkPlaylist() {
     let progress = this.playlist.indexOf(this.currentTrack) + 1;
     if (progress === this.playlist.length) {
-      // stop audio 
+      this.playTrack(this.playlist[0]);
+      this.audioService.seekAudio(0);
+      this.audioService.pauseAudio();
     } else {
       this.playTrack(this.playlist[progress]);
     }

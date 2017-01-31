@@ -7,6 +7,8 @@ import { PlaylistService } from './services/playlist.service';
 import { PlayerPositionService } from './services/player-position.service';
 import { IonicModule } from 'ionic-angular';
 
+// TODO: Research if we can import only the Ionic components used rather than entire module
+
 @NgModule({
   declarations: [
     AudiobarComponent,

@@ -29,7 +29,7 @@
       <button (click)="toggleAudiobar()">close</button>
     </div>
     <div [style.height.px]="parentHeight / 2" class="image-container">
-      <img [class.pause-state]="playerStatus === 'paused'" [class.play-state]="playerStatus === 'playing'" [src]="track.image" height="100%" />
+      <img [class.pause-state]="playerStatus === 'paused'" [class.play-state]="playerStatus === 'playing'" [src]="track.image" height="90%" />
     </div>
     <div class="track-progress-slider">
       <input type="range" min="0" max="100" (change)="seekAudio($event)" [value]="percentElapsed" width="70%" />
@@ -44,15 +44,15 @@
         <h3>{{ track.song }}</h3>
     </div>
     <div class="track-controls-layout">
-        <button ion-button icon-only clear (click)="previousTrack()" [disabled]="playerStatus === 'loading'" type="button">
+        <button ion-button icon-only large clear (click)="previousTrack()" [disabled]="playerStatus === 'loading'" type="button">
           <ion-icon name="rewind"></ion-icon>
         </button>
-        <button ion-button icon-only clear (click)="toggleAudio()" [ngSwitch]="playerStatus" [disabled]="playerStatus === 'loading'" type="button">
+        <button ion-button icon-only large clear (click)="toggleAudio()" [ngSwitch]="playerStatus" [disabled]="playerStatus === 'loading'" class="controls-pp" type="button">
           <ion-icon *ngSwitchCase="'paused'" name="play"></ion-icon>
           <ion-icon *ngSwitchCase="'playing'" name="pause"></ion-icon>
           <ion-spinner *ngSwitchCase="'loading'" name="crescent"></ion-spinner>
         </button>
-        <button ion-button icon-only clear (click)="nextTrack()" [disabled]="playerStatus === 'loading'" type="button">
+        <button ion-button icon-only large clear (click)="nextTrack()" [disabled]="playerStatus === 'loading'" type="button">
           <ion-icon name="fastforward"></ion-icon>
         </button>
     </div>
