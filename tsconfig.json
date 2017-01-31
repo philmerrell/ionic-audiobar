@@ -15,7 +15,7 @@
     ]
   },
   "files": [
-    "./index.ts"
+    "dist/audiobar.module.ts"
   ],
   "include": [
     "lib"

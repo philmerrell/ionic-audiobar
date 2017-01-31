@@ -1,1 +1,15 @@
 node_modules
+demo
+# IDEs
+/.idea
+/.vscode
+
+# misc
+.DS_Store
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/.chrome

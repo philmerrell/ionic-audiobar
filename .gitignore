@@ -1,32 +1,14 @@
 node_modules
-.vscode
-.idea
-*~
-*.sw[mnpcod]
-*.log
-*.tmp
-*.tmp.*
-log.txt
-*.sublime-project
-*.sublime-workspace
-.vscode/
-npm-debug.log*
+# IDEs
+/.idea
+/.vscode
 
-.sass-cache/
-.tmp/
-.versions/
-coverage/
-node_modules/
-tmp/
-temp/
-hooks/
-platforms/
-plugins/
-plugins/android.json
-plugins/ios.json
-www/
-$RECYCLE.BIN/
-
+# misc
 .DS_Store
-Thumbs.db
-UserInterfaceState.xcuserstate
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/.chrome
