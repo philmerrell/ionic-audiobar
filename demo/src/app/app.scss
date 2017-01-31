@@ -14,3 +14,266 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+
+.audiobar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 0;
+  background: #f7f7f7;
+}
+
+.audiobar-layout {
+  display: table;
+
+  .audiobar-image {
+    display: table-cell;
+    vertical-align: top;
+    position: relative;
+    width: 1%;
+
+    img {
+      height: 60px;
+      width: 60px;
+    }
+  }
+
+  .audiobar-info-container {
+    display: table-cell;
+    vertical-align: top;
+    position: relative;
+
+    .audiobar-info {
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      padding: 13px 15px;
+
+      h3 {
+        font-size: 1rem;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      h4 {
+        font-size: 0.9rem;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1rem;
+      }
+    }
+  }
+  .audiobar-controls-container {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    width: 1%;
+
+    .audiobar-controls {
+      white-space: nowrap;
+
+      button {
+        border: 0;
+        background: transparent;
+        margin-right: 15px;
+        outline: none;
+      }
+    }
+  }
+  
+}
+
+.elapsed-container {
+    position: relative; 
+    height: 3px; 
+    width: 100%;
+    padding: 0; 
+    margin: 0;
+}
+
+.percent-elapsed {
+    position: absolute;
+    line-height: 3px;
+    height: 3px;
+    background-color: orangered;
+}
+
+.percent-loaded {
+    position: absolute;
+    line-height: 3px;
+    height: 3px;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.track-detail-panel {
+  button {
+    border: 0;
+    background: transparent;
+    outline: none;
+  }
+  
+  .panel-controls {
+    text-align: right;
+  }
+  .image-container {
+    text-align: center;
+    
+    .pause-state {
+      transform: scale(.8);
+      transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
+    }
+    .play-state {
+      transform: scale(1);
+      transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
+    }
+  }
+  .track-time-layout {
+    display: table;
+    padding: 10px;
+    .track-time-elapsed {
+      display: table-cell;
+      font-size: 0.8em;
+      vertical-align: top;
+      position: relative;
+      width: 1%;
+    }
+    .track-time-spacer {
+      display: table-cell;
+      vertical-align: top;
+      position: relative;
+    }
+    .track-time-remaining {
+      display: table-cell;
+      font-size: 0.8em;
+      vertical-align: top;
+      position: relative;
+      width: 1%;
+    }
+  }
+  .track-controls-layout {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 10px;
+
+    .controls-pp {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+  .track-progress-slider {
+    text-align: center;
+  }
+  .track-detail-info {
+    text-align: center;
+    padding: 10px;
+    h1 {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      h3 {
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+  }
+}
+
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../../assets/fonts/icomoon.eot?3et2hx#iefix') format('embedded-opentype'),
+    url('../../assets/fonts/icomoon.ttf?3et2hx') format('truetype'),
+    url('../../assets/fonts/icomoon.woff?3et2hx') format('woff'),
+    url('../../assets/fonts/icomoon.svg?3et2hx#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-loading:before {
+  content: "\e97b";
+  font-size: 2em;
+}
+
+.icon-play:before {
+  content: "\ea1c";
+  font-size: 2em;
+}
+
+.icon-pause:before {
+  content: "\ea1d";
+  font-size: 2em;
+}
+
+.icon-rewind:before {
+  content: "\ea1f";
+  font-size: 2em;
+}
+
+.icon-fastforward:before {
+  content: "\ea20";
+  font-size: 2em;
+}
+
+.spinner {
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 2000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 2000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 2000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    animation-name: spin;
+    animation-duration: 2000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
