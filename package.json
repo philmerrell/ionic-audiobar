@@ -4,7 +4,8 @@
   "description": "Angular 2+ audio player",
   "main": "dist/audiobar.module.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "tsc"
   },
   "repository": {
     "type": "git",
