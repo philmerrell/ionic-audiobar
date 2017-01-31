@@ -1,22 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AudioPlaylistComponent } from './audio-playlist.component';
+import { AudiobarComponent } from './audiobar.component';
 import { PlayerComponent } from './player/player.component';
 import { AudioService } from './services/audio.service';
 import { PlaylistService } from './services/playlist.service';
 import { PlayerPositionService } from './services/player-position.service';
+import { IonicModule } from 'ionic-angular';
 
 @NgModule({
   declarations: [
-    AudioPlaylistComponent,
+    AudiobarComponent,
     PlayerComponent
   ],
   exports: [
-    AudioPlaylistComponent
+    AudiobarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    IonicModule
   ],
   providers: [ AudioService, PlaylistService, PlayerPositionService ]
 })
 export class AudiobarModule {}
+export * from './audiobar.component';

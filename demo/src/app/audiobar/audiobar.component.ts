@@ -5,10 +5,10 @@ import { AudioService } from './services/audio.service';
 import { PlaylistService } from './services/playlist.service';
 
 @Component({
-  selector: 'app-audio-playlist',
-  templateUrl: './audio-playlist.component.html'
+  selector: 'audiobar',
+  templateUrl: './audiobar.component.html'
 })
-export class AudioPlaylistComponent implements OnChanges, OnInit {
+export class AudiobarComponent implements OnChanges, OnInit {
   @Input() playlist: Track[];
 
   public currentTrack: Track;

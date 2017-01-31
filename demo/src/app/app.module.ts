@@ -1,8 +1,8 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { AudiobarModule } from './audiobar/audio-playlist.module';
+import { AudiobarModule } from './audiobar/audiobar.module';
 
 @NgModule({
   declarations: [
@@ -10,14 +10,15 @@ import { AudiobarModule } from './audiobar/audio-playlist.module';
     HomePage
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
-    AudiobarModule
+    AudiobarModule,
+    IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}

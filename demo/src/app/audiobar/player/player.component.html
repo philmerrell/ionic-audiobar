@@ -15,10 +15,10 @@
     </div>
     <div class="audiobar-controls-container">
       <div class="audiobar-controls">
-        <button (click)="toggleAudio()" [ngSwitch]="playerStatus" [disabled]="playerStatus === 'loading'" type="button">
-          <div *ngSwitchCase="'paused'" class="icon-play" aria-hidden="true"></div>
-          <div *ngSwitchCase="'playing'" class="icon-pause" aria-hidden="true"></div>
-          <div *ngSwitchCase="'loading'" class="spinner icon-loading" aria-hidden="true"></div>
+        <button ion-button icon-only clear (click)="toggleAudio()" [ngSwitch]="playerStatus" [disabled]="playerStatus === 'loading'" type="button">
+          <ion-icon *ngSwitchCase="'paused'" name="play"></ion-icon>
+          <ion-icon *ngSwitchCase="'playing'" name="pause"></ion-icon>
+          <ion-spinner *ngSwitchCase="'loading'" name="crescent"></ion-spinner>
         </button>
       </div>
     </div>
@@ -44,16 +44,16 @@
         <h3>{{ track.song }}</h3>
     </div>
     <div class="track-controls-layout">
-        <button (click)="previousTrack()" [disabled]="playerStatus === 'loading'" type="button">
-          <div class="icon-rewind" aria-hidden="true"></div>
+        <button ion-button icon-only clear (click)="previousTrack()" [disabled]="playerStatus === 'loading'" type="button">
+          <ion-icon name="rewind"></ion-icon>
         </button>
-        <button (click)="toggleAudio()" [ngSwitch]="playerStatus" [disabled]="playerStatus === 'loading'" type="button" class="controls-pp">
-          <div *ngSwitchCase="'paused'" class="icon-play" aria-hidden="true"></div>
-          <div *ngSwitchCase="'playing'" class="icon-pause" aria-hidden="true"></div>
-          <div *ngSwitchCase="'loading'" class="spinner icon-loading" aria-hidden="true"></div>
+        <button ion-button icon-only clear (click)="toggleAudio()" [ngSwitch]="playerStatus" [disabled]="playerStatus === 'loading'" type="button">
+          <ion-icon *ngSwitchCase="'paused'" name="play"></ion-icon>
+          <ion-icon *ngSwitchCase="'playing'" name="pause"></ion-icon>
+          <ion-spinner *ngSwitchCase="'loading'" name="crescent"></ion-spinner>
         </button>
-        <button (click)="nextTrack()" [disabled]="playerStatus === 'loading'" type="button">
-          <div class="icon-fastforward" aria-hidden="true"></div>
+        <button ion-button icon-only clear (click)="nextTrack()" [disabled]="playerStatus === 'loading'" type="button">
+          <ion-icon name="fastforward"></ion-icon>
         </button>
     </div>
   </div>

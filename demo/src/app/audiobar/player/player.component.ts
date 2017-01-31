@@ -6,7 +6,7 @@ import { PlaylistService } from '../services/playlist.service'
 import { Track } from '../services/track.model';
 
 @Component({
-  selector: 'app-player',
+  selector: 'audiobar-player',
   templateUrl: './player.component.html'
 })
 export class PlayerComponent implements OnChanges, OnInit {
@@ -19,8 +19,7 @@ export class PlayerComponent implements OnChanges, OnInit {
   public percentLoaded: number;
   public playerStatus: string;
   public playlist: Track[];
-  public isLastTrack: boolean = false;
-  public isFirstTrack: boolean = false;
+
 
   private audiobarVisible: boolean = false;
   private currentTrack: Track;
