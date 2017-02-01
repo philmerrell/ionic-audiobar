@@ -1,6 +1,6 @@
 {
   "name": "ionic-audiobar",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Angular 2+ audio player",
   "main": "dist/audiobar.module.ts",
   "scripts": {
