@@ -38,7 +38,7 @@ export class AudiobarComponent implements OnChanges, OnInit {
       });
   }
 
-  private playTrack(track) {
+  private playTrack(track: Track) {
     this.currentTrack = track;
   }
 

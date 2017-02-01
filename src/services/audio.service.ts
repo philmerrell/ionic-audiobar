@@ -70,7 +70,7 @@ export class AudioService {
         return this.audio;
     }
 
-    public setAudio(src): void {
+    public setAudio(src: string): void {
         this.audio.src = src;
         this.playAudio();
     }
@@ -83,7 +83,7 @@ export class AudioService {
         this.audio.pause();
     }
 
-    public seekAudio(position): void {
+    public seekAudio(position: number): void {
         this.audio.currentTime = position;
     }
 

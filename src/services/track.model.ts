@@ -7,7 +7,7 @@ export class Track {
     song: string;
     index: number;
 
-    constructor(url, artist, song, image) {
+    constructor(url: string, artist: string, song: string, image: string) {
         this.audioUrl = url;
         this.image = image;
         this.artist = artist;
