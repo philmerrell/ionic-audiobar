@@ -3,6 +3,10 @@ node_modules
 /.idea
 /.vscode
 
+/dist/**/*.js
+/dist/**/*.map
+/dist/**/*.d.ts
+
 # misc
 .DS_Store
 /.sass-cache

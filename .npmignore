@@ -4,6 +4,10 @@ demo
 /.idea
 /.vscode
 
+# Ignored files
+dist/**/*.ts
+!*.d.ts
+
 # misc
 .DS_Store
 /.sass-cache
