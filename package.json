@@ -5,7 +5,9 @@
   "main": "dist/audiobar.module.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc && cp src/**/*.html dist && cp src/*.scss dist"
+    "prepublish": "npm run clean && tsc && npm run copyAssets",
+    "clean": "rm -r dist/*",
+    "copyAssets": "cp src/audiobar.component.html dist && cp src/player/player.component.html dist/player && cp src/*.scss dist"
   },
   "repository": {
     "type": "git",
