@@ -1,0 +1,60 @@
+<div #audioBar class="audiobar" [style.bottom.px]="-parentHeight">
+  <div class="elapsed-container">
+    <div [style.width.px]="percentLoaded" class="percent-loaded"></div>
+    <div [style.width.px]="percentElapsed" class="percent-elapsed"></div>
+  </div>
+  <div class="audiobar-layout">
+    <div (click)="toggleAudiobar()" class="audiobar-image">
+      <img [src]="track.image">
+    </div>
+    <div (click)="toggleAudiobar()" class="audiobar-info-container">
+      <div class="audiobar-info">
+        <h3>{{ track.artist }}</h3>
+        <h4>{{ track.song }}</h4>
+      </div>
+    </div>
+    <div class="audiobar-controls-container">
+      <div class="audiobar-controls">
+        <button ion-button icon-only clear (click)="toggleAudio()" [ngSwitch]="playerStatus" [disabled]="playerStatus === 'loading'" type="button">
+          <ion-icon *ngSwitchCase="'paused'" name="play"></ion-icon>
+          <ion-icon *ngSwitchCase="'playing'" name="pause"></ion-icon>
+          <ion-spinner *ngSwitchCase="'loading'" name="crescent"></ion-spinner>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- TODO: Get height of relative parent container.-->
+  <div [style.height.px]="parentHeight" class="track-detail-panel">
+    <div class="panel-controls">
+      <button (click)="toggleAudiobar()">close</button>
+    </div>
+    <div [style.height.px]="parentHeight / 2" class="image-container">
+      <img [class.pause-state]="playerStatus === 'paused'" [class.play-state]="playerStatus === 'playing'" [src]="track.image" height="90%" />
+    </div>
+    <div class="track-progress-slider">
+      <input type="range" min="0" max="100" (change)="seekAudio($event)" [value]="percentElapsed" width="70%" />
+    </div>
+    <div class="track-time-layout">
+      <div class="track-time-elapsed">{{ timeElapsed }}</div>
+      <div class="track-time-spacer"></div>
+      <div class="track-time-remaining">{{ timeRemaining }}</div>
+    </div>
+    <div class="track-detail-info">
+        <h1>{{ track.artist }}</h1>
+        <h3>{{ track.song }}</h3>
+    </div>
+    <div class="track-controls-layout">
+        <button ion-button icon-only large clear (click)="previousTrack()" [disabled]="playerStatus === 'loading'" type="button">
+          <ion-icon name="rewind"></ion-icon>
+        </button>
+        <button ion-button icon-only large clear (click)="toggleAudio()" [ngSwitch]="playerStatus" [disabled]="playerStatus === 'loading'" class="controls-pp" type="button">
+          <ion-icon *ngSwitchCase="'paused'" name="play"></ion-icon>
+          <ion-icon *ngSwitchCase="'playing'" name="pause"></ion-icon>
+          <ion-spinner *ngSwitchCase="'loading'" name="crescent"></ion-spinner>
+        </button>
+        <button ion-button icon-only large clear (click)="nextTrack()" [disabled]="playerStatus === 'loading'" type="button">
+          <ion-icon name="fastforward"></ion-icon>
+        </button>
+    </div>
+  </div>
+</div>

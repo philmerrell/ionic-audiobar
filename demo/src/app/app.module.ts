@@ -2,7 +2,7 @@ import { NgModule, ErrorHandler, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { AudiobarModule } from 'ionic-audiobar';
+import { AudiobarModule } from '../../node_modules/ionic-audiobar/dist/audiobar.module';
 
 @NgModule({
   declarations: [
