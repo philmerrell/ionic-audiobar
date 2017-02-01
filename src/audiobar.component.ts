@@ -5,8 +5,7 @@ import { PlaylistService } from './services/playlist.service';
 
 @Component({
   selector: 'audiobar',
-  templateUrl: './audiobar.component.html',
-  styleUrls: ['./audiobar.scss'],
+  template: '<audiobar-player [track]="currentTrack"></audiobar-player>'
 })
 export class AudiobarComponent implements OnChanges, OnInit {
   @Input() playlist: Track[];
