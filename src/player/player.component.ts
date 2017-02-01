@@ -7,7 +7,7 @@ import { Track } from '../services/track.model';
 
 @Component({
   selector: 'audiobar-player',
-  templateUrl: `
+  template: `
     <div #audioBar class="audiobar" [style.bottom.px]="-parentHeight">
       <div class="elapsed-container">
         <div [style.width.px]="percentLoaded" class="percent-loaded"></div>
