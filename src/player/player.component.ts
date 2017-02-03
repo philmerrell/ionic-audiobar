@@ -268,7 +268,6 @@ export class PlayerComponent implements OnChanges, OnInit {
   public playerStatus: string;
   public playlist: Track[];
 
-
   private audiobarVisible: boolean = false;
   private currentTrack: Track;
   private parentHeight: number;
