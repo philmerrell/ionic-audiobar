@@ -42,7 +42,7 @@ import { Track } from '../services/track.model';
           <img [class.pause-state]="playerStatus === 'paused'" [class.play-state]="playerStatus === 'playing'" [src]="track.image" height="90%" />
         </div>
         <div class="track-progress-slider">
-          <input type="range" min="0" max="100" (change)="seekAudio($event)" [value]="percentElapsed" width="70%" />
+          <ion-range min="0" max="100" (ionChange)="seekAudio($event)" [(ngModel)]="percentElapsed"></ion-range>
         </div>
         <div class="track-time-layout">
           <div class="track-time-elapsed">{{ timeElapsed }}</div>
@@ -330,7 +330,7 @@ export class PlayerComponent implements OnChanges, OnInit {
   }
 
   public seekAudio(event) {
-    let position = event.srcElement.value / (100 / this.audioService.getAudio().duration);
+    let position = event.value / (100 / this.audioService.getAudio().duration);
     this.audioService.seekAudio(position);
   }
 
