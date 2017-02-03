@@ -24,4 +24,4 @@ import { IonicModule } from 'ionic-angular';
   providers: [ AudioService, PlaylistService, PlayerPositionService ]
 })
 export class AudiobarModule {}
-export * from './audiobar.component';
+export * from './services/track.model';

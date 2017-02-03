@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
-import { Track } from '../../app/audiobar/services/track.model';
+import { Track } from 'ionic-audiobar';
 
 @Component({
   selector: 'page-home',
