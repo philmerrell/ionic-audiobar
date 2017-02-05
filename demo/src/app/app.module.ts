@@ -2,7 +2,8 @@ import { NgModule, ErrorHandler, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { AudiobarModule } from '../../node_modules/ionic-audiobar/dist/audiobar.module';
+import { AudiobarModule } from 'ionic-audiobar';
+import { SoundCloudService } from './services/sound-cloud.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { AudiobarModule } from '../../node_modules/ionic-audiobar/dist/audiobar.
     MyApp,
     HomePage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}],
+  providers: [SoundCloudService, {provide: ErrorHandler, useClass: IonicErrorHandler}],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}
