@@ -13,3 +13,40 @@ This component is in the early stages of development and not recommended for use
 In most cases you'll want to use the Audiobar on your top level view so that it stays persistent across all views 
 in your application.
 
+home.ts
+```
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { Track } from 'ionic-audiobar';
+
+@Component({
+  selector: 'page-home',
+  templateUrl: 'home.html'
+})
+export class HomePage {
+  public myPlaylist = [
+      new Track('https://api.soundcloud.com/tracks/62188129/stream?client_id=df942240e3e63f8e23596df0893eab2a', 
+                'Mac Demarco',
+                'Ode to Viceroy',
+                'https://i1.sndcdn.com/artworks-000031540797-8io3vh-t500x500.jpg')
+    ];
+  constructor(public navCtrl: NavController) {}
+
+}
+```
+
+home.html
+
+```
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Welcome to Ionic!</h2>
+</ion-content>
+<audiobar [playlist]="myPlaylist"></audiobar>
+
+```
