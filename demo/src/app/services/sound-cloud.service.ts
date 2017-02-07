@@ -19,4 +19,13 @@ export class SoundCloudService {
     }
   }
 
+  getBadgeImage(url: string) {
+    if (url) {
+      let image = url.replace('-large', '-badge');
+      return image;
+    } else {
+      return 'http://www.djwordy.com/wp-content/uploads/images/soundcloud.jpg';
+    }
+  }
+
 }

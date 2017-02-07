@@ -1,6 +1,12 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Ionic Audiobar</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-badge item-left color="light">2</ion-badge>
+        <!--<ion-icon name="list"></ion-icon>-->
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -8,7 +14,13 @@
   <ion-searchbar (ionInput)="searchSoundCloud($event)"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let result of soundCloudResults">
-      {{ result.artist }}
+      <ion-thumbnail item-left>
+        <img [src]="result.artwork_url">
+      </ion-thumbnail>      <h2>{{ result.title }}</h2>
+      <p>{{ result.user.username }}</p>
+      <button ion-button clear icon-only item-right>
+        <ion-icon name="add"></ion-icon>
+      </button>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -39,8 +39,8 @@ export class HomePage {
     this.soundCloudResults = [];
     for (let track of tracks) {
       let mp3Url = track.stream_url + '?client_id=' + this.soundCloud.getApiKey();
-      let image = this.soundCloud.getLargeImage(track.artwork_url);
-      this.soundCloudResults.push(new Track(mp3Url, track.user.username, track.title, image));
+      track.artwork_url = this.soundCloud.getBadgeImage(track.artwork_url);
+      this.soundCloudResults.push(track);
     }
   }
 }

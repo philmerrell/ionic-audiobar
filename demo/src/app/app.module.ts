@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AudiobarModule } from 'ionic-audiobar';
 import { SoundCloudService } from './services/sound-cloud.service';
+import { PlaylistService } from './services/playlist.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { SoundCloudService } from './services/sound-cloud.service';
     MyApp,
     HomePage
   ],
-  providers: [SoundCloudService, {provide: ErrorHandler, useClass: IonicErrorHandler}],
+  providers: [PlaylistService, SoundCloudService, {provide: ErrorHandler, useClass: IonicErrorHandler}],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule {}
