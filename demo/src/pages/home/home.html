@@ -16,9 +16,10 @@
     <ion-item *ngFor="let result of soundCloudResults">
       <ion-thumbnail item-left>
         <img [src]="result.artwork_url">
-      </ion-thumbnail>      <h2>{{ result.title }}</h2>
+      </ion-thumbnail>      
+      <h2>{{ result.title }}</h2>
       <p>{{ result.user.username }}</p>
-      <button ion-button clear icon-only item-right>
+      <button (click)="addToPlaylist(result)" ion-button clear icon-only item-right>
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-item>

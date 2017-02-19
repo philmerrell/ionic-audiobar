@@ -8,7 +8,7 @@ import { Track } from '../services/track.model';
 @Component({
   selector: 'audiobar-player',
   template: `
-    <div #audioBar class="audiobar" [style.bottom.px]="-parentHeight">
+    <div #audioBar *ngIf="track" class="audiobar" [style.bottom.px]="-parentHeight">
       <div class="elapsed-container">
         <div [style.width.px]="percentLoaded" class="percent-loaded"></div>
         <div [style.width.px]="percentElapsed" class="percent-elapsed"></div>
@@ -286,11 +286,9 @@ export class PlayerComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['track'].currentValue) {
-      let nextTrack = changes['track'].currentValue;
-      this.currentTrack = nextTrack;
-      this.audioService.setCurrentTrack(nextTrack);
-    }
+    let nextTrack = changes['track'].currentValue;
+    this.currentTrack = nextTrack;
+    this.audioService.setCurrentTrack(nextTrack);
   }
 
   initPlayerPosition() {
@@ -326,6 +324,11 @@ export class PlayerComponent implements OnChanges, OnInit {
     this.audioService.getPlayerStatus()
       .debounceTime(100)
       .subscribe(status => this.playerStatus = status);
+  }
+
+  private getPlaylist() {
+    this.playlistService.getPlaylist()
+      .subscribe(playlist => this.playlist);
   }
 
   public seekAudio(event) {

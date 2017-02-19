@@ -92,8 +92,11 @@ export class AudioService {
     }
 
     public setCurrentTrack(track: Track): void {
-        this.setAudio(track.audioUrl);
-        this.currentTrack.next(track);
+        if(track) {
+            this.setAudio(track.audioUrl);
+            this.currentTrack.next(track);
+        }
+        
     }
 
     private setTimeElapsed(ct: number): void {

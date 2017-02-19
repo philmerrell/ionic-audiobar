@@ -15,27 +15,27 @@ export class AudiobarComponent implements OnChanges, OnInit {
   constructor(private audioService: AudioService, private playlistService: PlaylistService) { }
 
   ngOnInit() {
-    this.getPlayerStatus();
+    // this.getPlayerStatus();
     this.currentTrack = this.playlist[0];
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['playlist'].currentValue) {
-      let changedPlaylist = changes['playlist'].currentValue;
-      this.playlistService.setPlaylist(changedPlaylist);
-      this.playlist = changedPlaylist;
-    }
+  //   if (changes['playlist'].currentValue) {
+  //     let changedPlaylist = changes['playlist'].currentValue;
+  //     this.playlistService.setPlaylist(changedPlaylist);
+  //     this.playlist = changedPlaylist;
+  //   }
   }
 
-  public getPlayerStatus() {
-    this.audioService.getPlayerStatus()
-      .debounceTime(100)
-      .subscribe((status) => {
-        if (status === 'ended') {
-          this.checkPlaylist();
-        }
-      });
-  }
+  // public getPlayerStatus() {
+  //   this.audioService.getPlayerStatus()
+  //     .debounceTime(100)
+  //     .subscribe((status) => {
+  //       if (status === 'ended') {
+  //         this.checkPlaylist();
+  //       }
+  //     });
+  // }
 
   private playTrack(track: Track) {
     this.currentTrack = track;

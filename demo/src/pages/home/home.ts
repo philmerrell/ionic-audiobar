@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Track } from 'ionic-audiobar';
 import { SoundCloudService } from '../../app/services/sound-cloud.service';
+import { PlaylistService } from '../../app/services/playlist.service';
 
 declare var SC: any;
 
@@ -18,8 +19,27 @@ export class HomePage {
 
   public soundCloudResults = [];
 
-  constructor(public navCtrl: NavController, private soundCloud: SoundCloudService) {
+  constructor(public navCtrl: NavController, private soundCloud: SoundCloudService, private playlistService: PlaylistService) {
     this.initializeSoundCloud();
+    this.getPlaylist();
+  }
+
+  addToPlaylist(SCResult) {
+    let mp3Url = SCResult.stream_url + '?client_id=' + this.soundCloud.getApiKey();
+    let user = SCResult.user.username;
+    let title = SCResult.title;
+    let image = this.soundCloud.getLargeImage(SCResult.artwork_url);
+
+    let track = new Track(mp3Url, user, title, image);
+    this.playlistService.addTrackToPlaylist(track);
+  }
+
+  getPlaylist() {
+    // this.playlistService.getPlaylist()
+    //   .subscribe(playlist => {
+    //     this.myPlaylist = playlist;
+    //     console.log(this.myPlaylist);
+    //   });
   }
 
   initializeSoundCloud() {
@@ -38,7 +58,6 @@ export class HomePage {
   extractTracks(tracks) {
     this.soundCloudResults = [];
     for (let track of tracks) {
-      let mp3Url = track.stream_url + '?client_id=' + this.soundCloud.getApiKey();
       track.artwork_url = this.soundCloud.getBadgeImage(track.artwork_url);
       this.soundCloudResults.push(track);
     }

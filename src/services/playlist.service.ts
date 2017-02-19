@@ -6,30 +6,23 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PlaylistService {
-    public playlist: BehaviorSubject<Track[]> = new BehaviorSubject(null);
+    public playlistSubject: BehaviorSubject<Track[]> = new BehaviorSubject([]);
+    private playlist = [];
 
     constructor() {}
 
     public getPlaylist(): Observable<Track[]> {
-        return this.playlist.asObservable();
+        return this.playlistSubject.asObservable();
     }
 
     public setPlaylist(playlist: Track[]): void {
-        this.playlist.next(playlist);
+        this.playlist = playlist;
+        this.playlistSubject.next(this.playlist);
     }
 
-        // TODO: Refactor to playlist service
-    public playNextTrack = () => {
-        // let finished;
-        // let tracks;
-        // this.getCurrentTrack().subscribe(track => finished = track);
-
-        // this.playlistService.getPlaylist().subscribe(playlist => tracks = playlist);
-        // if(finished.index + 1 !== tracks.length) {
-        //     this.setCurrentTrack(tracks[finished.index + 1])
-        // } else {
-        //     // stop audio
-        // }
+    public addTrackToPlaylist(track: Track): void {
+        this.playlist.push(track);
+        this.playlistSubject.next(this.playlist);
     }
 
 }
