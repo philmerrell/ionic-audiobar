@@ -282,13 +282,16 @@ export class PlayerComponent implements OnChanges, OnInit {
     this.getTimeRemaining();
     this.getPercentLoaded();
     this.getPercentElapsed();
+    this.getPlaylist();
     this.initPlayerPosition();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     let nextTrack = changes['track'].currentValue;
-    this.currentTrack = nextTrack;
-    this.audioService.setCurrentTrack(nextTrack);
+    if(nextTrack) {
+      this.currentTrack = nextTrack;
+      this.audioService.setCurrentTrack(nextTrack);
+    }
   }
 
   initPlayerPosition() {
@@ -328,7 +331,7 @@ export class PlayerComponent implements OnChanges, OnInit {
 
   private getPlaylist() {
     this.playlistService.getPlaylist()
-      .subscribe(playlist => this.playlist);
+      .subscribe(playlist => this.playlist = playlist);
   }
 
   public seekAudio(event) {
@@ -348,11 +351,15 @@ export class PlayerComponent implements OnChanges, OnInit {
   }
 
   public previousTrack() {
-
+    let index = this.playlist.indexOf(this.currentTrack);
+    console.log(index);
+    this.currentTrack = this.playlist[index - 1];
   }
 
   public nextTrack() {
-
+    let index = this.playlist.indexOf(this.currentTrack);
+    console.log(index);
+    this.currentTrack = this.playlist[index + 1];
   }
 
   public closeAudiobar() {

@@ -16,15 +16,17 @@ export class AudiobarComponent implements OnChanges, OnInit {
 
   ngOnInit() {
     // this.getPlayerStatus();
-    this.currentTrack = this.playlist[0];
+    if(this.playlist && this.playlist.length) {
+      this.currentTrack = this.playlist[0];
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-  //   if (changes['playlist'].currentValue) {
-  //     let changedPlaylist = changes['playlist'].currentValue;
-  //     this.playlistService.setPlaylist(changedPlaylist);
-  //     this.playlist = changedPlaylist;
-  //   }
+    let changedPlaylist = changes['playlist'].currentValue;
+    if (changedPlaylist) {
+      this.playlistService.setPlaylist(changedPlaylist);
+      this.playlist = changedPlaylist;
+    }
   }
 
   // public getPlayerStatus() {
@@ -37,19 +39,19 @@ export class AudiobarComponent implements OnChanges, OnInit {
   //     });
   // }
 
-  private playTrack(track: Track) {
-    this.currentTrack = track;
-  }
+  // private playTrack(track: Track) {
+  //   this.currentTrack = track;
+  // }
 
-  private checkPlaylist() {
-    let progress = this.playlist.indexOf(this.currentTrack) + 1;
-    if (progress === this.playlist.length) {
-      this.playTrack(this.playlist[0]);
-      this.audioService.seekAudio(0);
-      this.audioService.pauseAudio();
-    } else {
-      this.playTrack(this.playlist[progress]);
-    }
-  }
+  // private checkPlaylist() {
+  //   let progress = this.playlist.indexOf(this.currentTrack) + 1;
+  //   if (progress === this.playlist.length) {
+  //     this.playTrack(this.playlist[0]);
+  //     this.audioService.seekAudio(0);
+  //     this.audioService.pauseAudio();
+  //   } else {
+  //     this.playTrack(this.playlist[progress]);
+  //   }
+  // }
 
 }
