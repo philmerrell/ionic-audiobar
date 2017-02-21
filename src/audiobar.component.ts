@@ -10,8 +10,8 @@ import { Track } from './services/track.model';
   template: `
     <div #audioBar *ngIf="currentTrack" class="audiobar" [style.bottom.px]="-parentHeight">
       <div class="elapsed-container">
-        <div [style.width.px]="percentLoaded" class="percent-loaded"></div>
-        <div [style.width.px]="percentElapsed" class="percent-elapsed"></div>
+        <div [style.width.%]="percentLoaded" class="percent-loaded"></div>
+        <div [style.width.%]="percentElapsed" class="percent-elapsed"></div>
       </div>
       <div class="audiobar-layout">
         <div (click)="toggleAudiobar()" class="audiobar-image">
@@ -33,7 +33,6 @@ import { Track } from './services/track.model';
           </div>
         </div>
       </div>
-      <!-- TODO: Get height of relative parent container.-->
       <div [style.height.px]="parentHeight" class="track-detail-panel">
         <div class="panel-controls">
           <button (click)="toggleAudiobar()">close</button>
