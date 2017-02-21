@@ -1,10 +1,20 @@
 # Ionic Audiobar
 
+*This component is in the early stages of development and not recommended for use in a production application.*
+
+
 This component is derived from the UX pattern found in music applications such as Apple Music and Google Play Music.
 It exposes an, "Audiobar" (think Navbar and Tabbar) that when interacted with exposes a detail view of the 
 track currently playing.
 
-This component is in the early stages of development and not recommended for use in a production application.
+This component's responsibility is to simply consume a list of tracks, i.e., a playlist.  A playlist is passed to
+the component through an attribute 
+
+`<audiobar playlist="myPlaylist"></audiobar>`
+
+The audiobar's was designed to allow the user to play and navigate through a list of tracks that are passed to it.
+It will be up to the developer to manage multiple playlists.
+
 
 ## Installation
 `npm install ionic-audiobar`
