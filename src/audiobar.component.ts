@@ -231,6 +231,7 @@ import { Track } from './services/track.model';
     .track-detail-panel .track-controls-layout .controls-pp {
       margin-left: 20px;
       margin-right: 20px;
+      min-width: 60px;
     }
 
     .track-detail-panel .track-progress-slider {
