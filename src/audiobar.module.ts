@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AudiobarComponent } from './audiobar.component';
-import { PlayerComponent } from './player/player.component';
 import { AudioService } from './services/audio.service';
 import { PlaylistService } from './services/playlist.service';
 import { PlayerPositionService } from './services/player-position.service';
@@ -11,8 +10,7 @@ import { IonicModule } from 'ionic-angular';
 
 @NgModule({
   declarations: [
-    AudiobarComponent,
-    PlayerComponent
+    AudiobarComponent
   ],
   exports: [
     AudiobarComponent
