@@ -5,7 +5,7 @@
 	right: 0;
 	z-index: 9999;
 	padding: 0;
-	background: color($colors,;
+	background: #f7f7f7;
 }
 .audiobar-layout {
 	display: table;
@@ -85,7 +85,7 @@
 	position: absolute;
 	line-height: 3px;
 	height: 3px;
-	background-color: $black_40;
+	background-color: rgba(0,0,0,0.4);
 }
 .track-detail-panel {
 	button {
