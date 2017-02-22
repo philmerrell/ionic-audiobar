@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { Track } from './track.model';
-import 'rxjs/add/operator/map';
-
 
 @Injectable()
 export class PlaylistService {
