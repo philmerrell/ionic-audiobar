@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { AudioService } from './services/audio.service';
 import { PlayerPositionService } from './services/player-position.service';
