@@ -20,11 +20,28 @@ It will be up to the developer to manage multiple playlists.
 `npm install ionic-audiobar`
 
 ## Usage
+Import the audio bar module and add it to the imports array in your `app.module.ts` file.
+
+app.module.ts
+```ts
+import { AudiobarModule } from 'ionic-audiobar';
+
+@NgModule({
+  declarations: [
+    MyApp,
+    HomePage
+  ],
+  imports: [
+    AudiobarModule,
+    IonicModule.forRoot(MyApp)
+  ],
+```
+
 In most cases you'll want to use the Audiobar on your top level view so that it stays persistent across all views 
 in your application.
 
 home.ts
-```
+```ts
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Track } from 'ionic-audiobar';
@@ -47,7 +64,7 @@ export class HomePage {
 
 home.html
 
-```
+```html
 <ion-header>
   <ion-navbar>
     <ion-title>Home</ion-title>
