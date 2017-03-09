@@ -148,17 +148,15 @@
 	.track-detail-info {
 		text-align: center;
 		padding: 10px;
+		white-space: nowrap;
+		overflow: hidden;
 		h1 {
 			margin: 0;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
+			display: inline-block;
 		}
 		h3 {
 			margin: 0;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
+			display: inline-block;
 		}
 	}
 }

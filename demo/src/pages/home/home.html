@@ -12,8 +12,12 @@
 
 <ion-content>
   <ion-searchbar (ionInput)="searchSoundCloud($event)"></ion-searchbar>
-  <ion-list>
-    <ion-item *ngFor="let result of soundCloudResults">
+    <ion-list>
+      <button ion-item *ngFor="let track of myPlaylist" (click)="itemSelected(item)">
+        {{ track.artist }}
+      </button>  
+    </ion-list>
+    <!--<ion-item *ngFor="let result of soundCloudResults">
       <ion-thumbnail item-left>
         <img [src]="result.artwork_url">
       </ion-thumbnail>      
@@ -23,6 +27,6 @@
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-item>
-  </ion-list>
+  </ion-list>-->
 </ion-content>
 <audiobar [playlist]="myPlaylist"></audiobar>

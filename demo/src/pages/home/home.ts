@@ -13,8 +13,8 @@ declare var SC: any;
 export class HomePage {
   public myPlaylist = [
       new Track('https://api.soundcloud.com/tracks/62188129/stream?client_id=df942240e3e63f8e23596df0893eab2a',
-                'Mac Demarco', 
-                'Ode to Viceroy', 
+                'Artist with a really, really long name', 
+                'Ode to Viceroy with a really, really long name', 
                 'https://i1.sndcdn.com/artworks-000031540797-8io3vh-t500x500.jpg'),
                 new Track('https://api.soundcloud.com/tracks/129507506/stream?client_id=df942240e3e63f8e23596df0893eab2a',
                 'Mac Demarco', 
