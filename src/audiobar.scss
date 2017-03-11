@@ -147,7 +147,6 @@
 	}
 	.track-detail-info {
 		text-align: center;
-		padding: 10px;
 		white-space: nowrap;
 		overflow: hidden;
 		h1 {
@@ -159,4 +158,46 @@
 			display: inline-block;
 		}
 	}
+}
+
+
+
+
+
+.marquee {
+  position:relative;
+  overflow:hidden;
+}
+.marquee  {
+	.move {
+		padding-left: 20px;
+  	white-space: nowrap;
+  	display:inline-block;
+  	position: relative;
+  	-webkit-animation: marquee 15s infinite linear 3s;
+  	animation: marquee 15s infinite linear 3s;
+	}
+}
+// .marquee:hover h1 {
+//   -webkit-animation-play-state: paused;
+//   animation-play-state: paused;
+// }
+.marquee {
+	.move:after {
+		padding-left: 20px;
+		content:attr(content);
+		display:inline-block;
+	}
+}
+
+@-webkit-keyframes marquee{
+  0% {transform: translateX(0%);}
+  75% {transform: translateX(-50%);}
+	100% {transform: translateX(-50%);}
+}
+
+@keyframes marquee{
+  0% {transform: translateX(0%);}
+  75% {transform: translateX(-50%);}
+	100% {transform: translateX(-50%);}
 }

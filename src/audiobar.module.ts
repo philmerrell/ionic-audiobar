@@ -5,6 +5,7 @@ import { AudioService } from './services/audio.service';
 import { PlaylistService } from './services/playlist.service';
 import { PlayerPositionService } from './services/player-position.service';
 import { InfoMarqueeDirective } from './marquee.directive';
+import { MarqueeContentDirective } from './marquee-info.directive';
 import { IonicModule } from 'ionic-angular';
 
 // TODO: Research if we can import only the Ionic components used rather than entire module
@@ -12,7 +13,8 @@ import { IonicModule } from 'ionic-angular';
 @NgModule({
   declarations: [
     AudiobarComponent,
-    InfoMarqueeDirective
+    InfoMarqueeDirective,
+    MarqueeContentDirective
   ],
   exports: [
     AudiobarComponent
