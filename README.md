@@ -1,79 +1,27 @@
-# Ionic Audiobar
+# IonicAudiobarApp
 
-*This component is in the early stages of development and not recommended for use in a production application.*
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.3.
 
+## Development server
 
-This component is derived from the UX pattern found in music applications such as Apple Music and Google Play Music.
-It exposes an, "Audiobar" (think Navbar and Tabbar) that when interacted with exposes a detail view of the 
-track currently playing.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-This component's responsibility is to simply consume a list of tracks, i.e., a playlist.  A playlist is passed to
-the component through an attribute 
+## Code scaffolding
 
-`<audiobar playlist="myPlaylist"></audiobar>`
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-The audiobar's was designed to allow the user to play and navigate through a list of tracks that are passed to it.
-It will be up to the developer to manage multiple playlists.
+## Build
 
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Installation
-`npm install ionic-audiobar`
+## Running unit tests
 
-## Usage
-Import the audio bar module and add it to the imports array in your `app.module.ts` file.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-app.module.ts
-```ts
-import { AudiobarModule } from 'ionic-audiobar';
+## Running end-to-end tests
 
-@NgModule({
-  declarations: [
-    MyApp,
-    HomePage
-  ],
-  imports: [
-    AudiobarModule,
-    IonicModule.forRoot(MyApp)
-  ],
-```
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-In most cases you'll want to use the Audiobar on your top level view so that it stays persistent across all views 
-in your application.
+## Further help
 
-home.ts
-```ts
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { Track } from 'ionic-audiobar';
-
-@Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
-})
-export class HomePage {
-  public myPlaylist = [
-      new Track('https://api.soundcloud.com/tracks/62188129/stream?client_id=df942240e3e63f8e23596df0893eab2a', 
-                'Mac Demarco',
-                'Ode to Viceroy',
-                'https://i1.sndcdn.com/artworks-000031540797-8io3vh-t500x500.jpg')
-    ];
-  constructor(public navCtrl: NavController) {}
-
-}
-```
-
-home.html
-
-```html
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-</ion-content>
-<audiobar [playlist]="myPlaylist"></audiobar>
-
-```
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
