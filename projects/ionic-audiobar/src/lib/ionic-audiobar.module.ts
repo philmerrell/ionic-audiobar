@@ -4,6 +4,7 @@ import { AudioPlayerComponent } from './audio-player/audio-player.component';
 import { AudioPlayerDetailComponent } from './audio-player-detail/audio-player-detail.component';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { AudioService } from './audio.service';
 
 @NgModule({
   imports: [
@@ -11,6 +12,9 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   declarations: [IonicAudiobarComponent, AudioPlayerComponent, AudioPlayerDetailComponent],
-  exports: [IonicAudiobarComponent]
+  exports: [IonicAudiobarComponent],
+  providers: [
+    AudioService
+  ]
 })
 export class IonicAudiobarModule { }
