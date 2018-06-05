@@ -1,30 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
+import { Track } from '../track.model';
+import { AudioService } from '../services/audio.service';
+import { Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'ial-audio-player',
   template: `
-  <div class="elapsed-container">
-  <div [style.width.%]="50" class="percent-loaded"></div>
-  <div [style.width.%]="25" class="percent-elapsed"></div>
-</div>
-<div class="audiobar-layout">
-  <div class="audiobar-image">
-    <!--<img [src]="currentTrack.image">-->
-  </div>
-  <div class="audiobar-info-container">
-    <div class="audiobar-info">
-      <h3>track</h3>
-      <h4>track name</h4>
+    <div class="elapsed-container">
+      <div [style.width.%]="percentLoaded$ | async" class="percent-loaded"></div>
+      <div [style.width.%]="percentElapsed$ | async" class="percent-elapsed"></div>
     </div>
-  </div>
-  <div class="audiobar-controls-container">
-    <div class="audiobar-controls">
-      <button ion-button icon-only clear>
-        <ion-icon name="play"></ion-icon>
-      </button>
+    <div class="audiobar-layout">
+      <div class="audiobar-image">
+        <img [src]="track.image">
+      </div>
+      <div class="audiobar-info-container">
+        <div class="audiobar-info">
+          <h3>{{ track.artist }}</h3>
+          <h4>{{ track.song }}</h4>
+        </div>
+      </div>
+      <div class="audiobar-controls-container">
+        <div class="audiobar-controls">
+        <ion-button fill="clear"
+          (click)="toggleAudio()"
+          [ngSwitch]="playerStatus"
+          [disabled]="playerStatus === 'loading'" type="button">
+          <ion-icon *ngSwitchCase="'paused'" name="play" slot="icon-only"></ion-icon>
+          <ion-icon *ngSwitchCase="'playing'" name="pause" slot="icon-only"></ion-icon>
+          <ion-spinner *ngSwitchCase="'loading'" name="crescent"></ion-spinner>
+        </ion-button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   `,
   styles: [`
   .audiobar-image {
@@ -45,7 +54,7 @@ import { Component, OnInit } from '@angular/core';
     position: relative;
   }
 
-  .audiobar-info-conatiner .audiobar-info {
+  .audiobar-info-container .audiobar-info {
     position: absolute;
     left: 0;
     right: 0;
@@ -119,11 +128,63 @@ import { Component, OnInit } from '@angular/core';
   }
   `]
 })
-export class AudioPlayerComponent implements OnInit {
+export class AudioPlayerComponent implements OnInit, OnChanges {
+  @Input() track: Track;
+  @Output() ended: EventEmitter<Track> = new EventEmitter();
 
-  constructor() { }
+  timeElapsed$: Observable<string>;
+  timeRemaining$: Observable<string>;
+  percentElapsed$: Observable<number>;
+  percentLoaded$: Observable<number>;
+  playerStatus: string;
+
+  constructor(private audioService: AudioService) { }
 
   ngOnInit() {
+    this.getPercentElapsed();
+    this.getPercentLoaded();
+    this.getPlayerStatus();
+    this.getTimeElapsed();
+    this.getTimeRemaining();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const changedTrack = changes['track'].currentValue;
+    if (changedTrack) {
+      this.audioService.setCurrentTrack(changedTrack);
+    }
+  }
+
+  getTimeElapsed() {
+    this.timeElapsed$ = this.audioService.getTimeElapsed();
+  }
+
+  getTimeRemaining() {
+    this.timeRemaining$ = this.audioService.getTimeRemaining();
+  }
+
+  getPercentElapsed() {
+    this.percentElapsed$ = this.audioService.getPercentElapsed();
+  }
+
+  getPercentLoaded() {
+    this.percentLoaded$ = this.audioService.getPercentLoaded();
+  }
+
+  getPlayerStatus() {
+    this.audioService.getPlayerStatus()
+      .pipe(debounceTime(100))
+      .subscribe(status => {
+        this.playerStatus = status;
+        if (status === 'ended') {
+          this.ended.emit(this.track);
+        }
+      });
+  }
+
+  toggleAudio() {
+    this.audioService.toggleAudio();
+    return false;
   }
 
 }

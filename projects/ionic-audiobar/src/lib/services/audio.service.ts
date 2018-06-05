@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Track } from './track.model';
+import { Track } from '../track.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 

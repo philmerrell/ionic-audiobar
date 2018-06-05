@@ -6,13 +6,14 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { AudioService } from './services/audio.service';
 import { PlaylistService } from './services/playlist.service';
+import { AudioBarPositionDirective } from './audio-bar-position.directive';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule
   ],
-  declarations: [IonicAudiobarComponent, AudioPlayerComponent, AudioPlayerDetailComponent],
+  declarations: [IonicAudiobarComponent, AudioPlayerComponent, AudioPlayerDetailComponent, AudioBarPositionDirective],
   exports: [IonicAudiobarComponent],
   providers: [
     AudioService,
