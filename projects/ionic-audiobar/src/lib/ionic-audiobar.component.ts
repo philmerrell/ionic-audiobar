@@ -1,13 +1,15 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, EventEmitter, Output, HostListener } from '@angular/core';
 import { Track } from './track.model';
 import { PlaylistService } from './services/playlist.service';
+import { ModalController } from '@ionic/angular';
+import { AudioPlayerDetailComponent } from './audio-player-detail/audio-player-detail.component';
+
 
 @Component({
   selector: 'ial-ionic-audiobar',
   template: `
     <div ialAudioBarPosition [offset]="offset" class="audiobar">
       <ial-audio-player [track]="currentTrack" (ended)="getNextTrack($event)"></ial-audio-player>
-      <ial-audio-player-detail></ial-audio-player-detail>
     </div>
   `,
   styles: [`
@@ -26,9 +28,18 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
 
   @Input() playlist: Track[];
   @Input() offset;
+  @Output() trackChange: EventEmitter<Track> = new EventEmitter();
   currentTrack: Track;
 
-  constructor(private playlistService: PlaylistService) { }
+  constructor(
+    private playlistService: PlaylistService,
+    private modal: ModalController) { }
+
+    @HostListener('click') togglePlayerVisibility() {
+      this.presentModal().then(() => {
+        console.log('present');
+      });
+    }
 
   ngOnInit() {}
 
@@ -43,6 +54,7 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
   private setCurrentTrack(track) {
     if (track) {
       this.currentTrack = track;
+      this.trackChange.emit(track);
     }
   }
 
@@ -50,6 +62,14 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
     const index = this.playlist.findIndex(track => track === this.currentTrack);
     const nextTrack = this.playlist[index + 1];
     this.setCurrentTrack(nextTrack);
+  }
+
+  async presentModal() {
+    const modal = await this.modal.create({
+      component: AudioPlayerDetailComponent,
+      componentProps: { value: 123 }
+    });
+    return await modal.present();
   }
 
 }

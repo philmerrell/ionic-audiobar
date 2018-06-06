@@ -7,17 +7,28 @@ import { CommonModule } from '@angular/common';
 import { AudioService } from './services/audio.service';
 import { PlaylistService } from './services/playlist.service';
 import { AudioBarPositionDirective } from './audio-bar-position.directive';
+import { AudioPlayerDetailModalComponent } from './audio-player-detail-modal/audio-player-detail-modal.component';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule
   ],
-  declarations: [IonicAudiobarComponent, AudioPlayerComponent, AudioPlayerDetailComponent, AudioBarPositionDirective],
-  exports: [IonicAudiobarComponent],
+  declarations: [
+    IonicAudiobarComponent,
+    AudioPlayerComponent,
+    AudioPlayerDetailComponent,
+    AudioBarPositionDirective,
+    AudioPlayerDetailModalComponent
+  ],
+  exports: [ IonicAudiobarComponent ],
   providers: [
     AudioService,
     PlaylistService
+  ],
+  entryComponents: [
+    AudioPlayerDetailModalComponent,
+    AudioPlayerDetailComponent
   ]
 })
 export class IonicAudiobarModule { }

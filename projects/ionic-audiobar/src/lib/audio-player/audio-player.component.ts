@@ -7,13 +7,18 @@ import { debounceTime } from 'rxjs/operators';
 @Component({
   selector: 'ial-audio-player',
   template: `
-    <div class="elapsed-container">
-      <div [style.width.%]="percentLoaded$ | async" class="percent-loaded"></div>
-      <div [style.width.%]="percentElapsed$ | async" class="percent-elapsed"></div>
-    </div>
     <div class="audiobar-layout">
-      <div class="audiobar-image">
-        <img [src]="track.image">
+      <div class="audiobar-controls-container">
+        <div class="audiobar-controls">
+          <ion-button fill="clear"
+            (click)="toggleAudio()"
+            [ngSwitch]="playerStatus"
+            [disabled]="playerStatus === 'loading'" type="button">
+            <ion-icon *ngSwitchCase="'paused'" name="play" slot="icon-only"></ion-icon>
+            <ion-icon *ngSwitchCase="'playing'" name="pause" slot="icon-only"></ion-icon>
+            <ion-spinner *ngSwitchCase="'loading'" name="crescent"></ion-spinner>
+          </ion-button>
+        </div>
       </div>
       <div class="audiobar-info-container">
         <div class="audiobar-info">
@@ -21,18 +26,10 @@ import { debounceTime } from 'rxjs/operators';
           <h4>{{ track.song }}</h4>
         </div>
       </div>
-      <div class="audiobar-controls-container">
-        <div class="audiobar-controls">
-        <ion-button fill="clear"
-          (click)="toggleAudio()"
-          [ngSwitch]="playerStatus"
-          [disabled]="playerStatus === 'loading'" type="button">
-          <ion-icon *ngSwitchCase="'paused'" name="play" slot="icon-only"></ion-icon>
-          <ion-icon *ngSwitchCase="'playing'" name="pause" slot="icon-only"></ion-icon>
-          <ion-spinner *ngSwitchCase="'loading'" name="crescent"></ion-spinner>
-        </ion-button>
-        </div>
-      </div>
+    </div>
+    <div class="elapsed-container">
+      <div [style.width.%]="percentLoaded$ | async" class="percent-loaded"></div>
+      <div [style.width.%]="percentElapsed$ | async" class="percent-elapsed"></div>
     </div>
   `,
   styles: [`
@@ -58,8 +55,8 @@ import { debounceTime } from 'rxjs/operators';
     position: absolute;
     left: 0;
     right: 0;
-    text-align: center;
-    padding: 13px 15px;
+    text-align: left;
+    padding: 7px 0px;
   }
 
   .audiobar-info h3 {
@@ -76,7 +73,7 @@ import { debounceTime } from 'rxjs/operators';
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.1em;
+    line-height: 1.2em;
   }
 
   .audiobar-layout .audiobar-controls-container {

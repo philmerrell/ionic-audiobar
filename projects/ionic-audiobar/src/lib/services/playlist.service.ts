@@ -20,8 +20,8 @@ export class PlaylistService {
     this.playlistSubject.next(this.playlist);
   }
 
-  public addTrackToPlaylist(track: Track): void {
-    this.playlist.push(track);
-    this.playlistSubject.next(this.playlist);
-  }
+  // public addTrackToPlaylist(track: Track): void {
+  //   this.playlist.push(track);
+  //   this.playlistSubject.next(this.playlist);
+  // }
 }
