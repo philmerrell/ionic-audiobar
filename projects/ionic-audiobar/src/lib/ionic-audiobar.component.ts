@@ -2,7 +2,7 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges, EventEmitter, Outpu
 import { Track } from './track.model';
 import { PlaylistService } from './services/playlist.service';
 import { ModalController } from '@ionic/angular';
-import { AudioPlayerDetailComponent } from './audio-player-detail/audio-player-detail.component';
+import { AudioPlayerDetailModalComponent } from './audio-player-detail-modal/audio-player-detail-modal.component';
 
 
 @Component({
@@ -66,7 +66,7 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
 
   async presentModal() {
     const modal = await this.modal.create({
-      component: AudioPlayerDetailComponent,
+      component: AudioPlayerDetailModalComponent,
       componentProps: { value: 123 }
     });
     return await modal.present();
