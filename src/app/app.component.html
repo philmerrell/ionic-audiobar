@@ -1,0 +1,24 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<ion-app>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>App</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of myPlaylist; let i = $index;">
+        <ion-item>
+          <ion-label [ngClass]="{'playing': item === currentTrack}">
+            {{ item.song }}
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="start">
+          <ion-item-option>Remove</ion-item-option>
+          <ion-item-option color="danger">Share</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-content>
+  <ial-ionic-audiobar [playlist]="myPlaylist" (trackChange)="currentTrack = $event;"></ial-ionic-audiobar>
+</ion-app>
