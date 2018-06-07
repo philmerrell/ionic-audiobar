@@ -3,6 +3,7 @@ import { Track } from './track.model';
 import { PlaylistService } from './services/playlist.service';
 import { ModalController } from '@ionic/angular';
 import { AudioPlayerDetailModalComponent } from './audio-player-detail-modal/audio-player-detail-modal.component';
+import { of } from 'rxjs';
 
 
 @Component({
@@ -54,6 +55,7 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
   private setCurrentTrack(track) {
     if (track) {
       this.currentTrack = track;
+      this.playlistService.setCurrentTrack(track);
       this.trackChange.emit(track);
     }
   }
@@ -67,7 +69,7 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
   async presentModal() {
     const modal = await this.modal.create({
       component: AudioPlayerDetailModalComponent,
-      componentProps: { value: 123 }
+      componentProps: { currentTrack$: of(this.currentTrack) }
     });
     return await modal.present();
   }

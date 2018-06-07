@@ -6,8 +6,11 @@ import { Track } from '../track.model';
   providedIn: 'root'
 })
 export class PlaylistService {
-  public playlistSubject: BehaviorSubject<Track[]> = new BehaviorSubject([]);
+  private playlistSubject: BehaviorSubject<Track[]> = new BehaviorSubject([]);
   private playlist = [];
+  private currentTrackSubject: BehaviorSubject<Track> = new BehaviorSubject({} as Track);
+  private currentTrack;
+
 
   constructor() { }
 
@@ -18,6 +21,15 @@ export class PlaylistService {
   public setPlaylist(playlist: Track[]): void {
     this.playlist = playlist;
     this.playlistSubject.next(this.playlist);
+  }
+
+  public getCurrentTrack(): Observable<Track> {
+    return this.currentTrackSubject.asObservable();
+  }
+
+  public setCurrentTrack(track: Track): void {
+    this.currentTrack = track;
+    this.currentTrackSubject.next(this.currentTrack);
   }
 
   // public addTrackToPlaylist(track: Track): void {

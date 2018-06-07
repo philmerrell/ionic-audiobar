@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'ial-audio-player-detail-modal',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
     <ion-header>
       <ion-toolbar>
         <ion-title>Playlist</ion-title>
+        <ion-button (click)="modal.dismiss()">
+        close
+        </ion-button>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -15,8 +19,7 @@ import { Component, OnInit } from '@angular/core';
   styles: [``]
 })
 export class AudioPlayerDetailModalComponent implements OnInit {
-
-  constructor() { }
+  constructor(public modal: ModalController) { }
 
   ngOnInit() {
   }
