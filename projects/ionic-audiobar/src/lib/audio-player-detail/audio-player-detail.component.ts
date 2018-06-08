@@ -8,7 +8,7 @@ import { PlaylistService } from '../services/playlist.service';
   selector: 'ial-audio-player-detail',
   template: `
     <div class="track-detail-panel">
-      <div [style.height.px]="parentHeight / 2" class="image-container">
+      <div [style.height.px]="modalHeight / 2" class="image-container">
         <img [class.pause-state]="playerStatus === 'paused'"
         [class.play-state]="playerStatus === 'playing'"
         [src]="(currentTrack$ | async)?.image"
@@ -132,6 +132,7 @@ import { PlaylistService } from '../services/playlist.service';
 })
 export class AudioPlayerDetailComponent implements OnInit {
   currentTrack$: Observable<Track>;
+  modalHeight: number;
   timeElapsed$: Observable<string>;
   timeRemaining$: Observable<string>;
   playerStatus;
@@ -142,6 +143,12 @@ export class AudioPlayerDetailComponent implements OnInit {
     this.subscribeToPlayerStatus();
     this.getTimeElapsed$();
     this.getTimeRemaining$();
+    this.getModalHeight();
+  }
+
+  getModalHeight() {
+    const modal = document.querySelector('ion-modal');
+    this.modalHeight = modal.offsetHeight;
   }
 
   toggleAudio() {
