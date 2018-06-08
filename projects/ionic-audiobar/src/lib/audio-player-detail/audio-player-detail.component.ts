@@ -15,11 +15,12 @@ import { PlaylistService } from '../services/playlist.service';
         height="90%" />
       </div>
       <div class="track-progress-slider">
-        <!-- <ion-range
+        <ion-range
           min="0" max="100"
+          debounce="100"
           (ionChange)="seekAudio($event)"
           [(ngModel)]="percentElapsed">
-        </ion-range> -->
+        </ion-range>
       </div>
       <div class="track-time-layout">
         <div class="track-time-elapsed">{{ timeElapsed$ | async }}</div>
@@ -56,6 +57,18 @@ import { PlaylistService } from '../services/playlist.service';
     </div>
   `,
   styles: [`
+    .image-container .pause-state {
+			transform: scale(0.8);
+			transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
+		}
+		.image-container .play-state {
+			transform: scale(1);
+			transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
+		}
+
+    .image-container {
+      text-align: center;
+    }
     .track-detail-panel button {
       border: 0;
       background: transparent;
@@ -133,14 +146,16 @@ import { PlaylistService } from '../services/playlist.service';
 export class AudioPlayerDetailComponent implements OnInit {
   currentTrack$: Observable<Track>;
   modalHeight: number;
+  percentElapsed;
+  playerStatus;
   timeElapsed$: Observable<string>;
   timeRemaining$: Observable<string>;
-  playerStatus;
   constructor(private audioService: AudioService, private playlistService: PlaylistService) { }
 
   ngOnInit() {
     this.currentTrack$ = this.playlistService.getCurrentTrack();
     this.subscribeToPlayerStatus();
+    this.getPercentElapsed$();
     this.getTimeElapsed$();
     this.getTimeRemaining$();
     this.getModalHeight();
@@ -151,8 +166,19 @@ export class AudioPlayerDetailComponent implements OnInit {
     this.modalHeight = modal.offsetHeight;
   }
 
+  seekAudio(event) {
+    console.log(event);
+    const position = event.value / (100 / this.audioService.getAudio().duration);
+    this.audioService.seekAudio(position);
+  }
+
   toggleAudio() {
     this.audioService.toggleAudio();
+  }
+
+  private getPercentElapsed$() {
+    this.audioService.getPercentElapsed()
+      .subscribe(percent => this.percentElapsed = percent);
   }
 
   private getTimeRemaining$() {

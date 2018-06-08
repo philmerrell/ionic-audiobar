@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
         <ion-icon name="close" slot="icon-only"></ion-icon>
       </ion-button>
       <ial-audio-player-detail></ial-audio-player-detail>
+      <ial-playlist-component></ial-playlist-component>
     </ion-content>
   `,
   styles: [``]
