@@ -8,18 +8,19 @@ import { PlaylistService } from '../services/playlist.service';
   selector: 'ial-audio-player-detail',
   template: `
     <div class="track-detail-panel">
-      <div [style.height.px]="parentHeight / 2" class="image-container">
+      <div [style.height.px]="modalHeight / 2" class="image-container">
         <img [class.pause-state]="playerStatus === 'paused'"
         [class.play-state]="playerStatus === 'playing'"
         [src]="(currentTrack$ | async)?.image"
         height="90%" />
       </div>
       <div class="track-progress-slider">
-        <!-- <ion-range
+        <ion-range
           min="0" max="100"
-          (ionChange)="seekAudio($event)"
+          (ionFocus)="setIsSeeking()"
+          (ionBlur)="seekAudio($event.target.value)"
           [(ngModel)]="percentElapsed">
-        </ion-range> -->
+        </ion-range>
       </div>
       <div class="track-time-layout">
         <div class="track-time-elapsed">{{ timeElapsed$ | async }}</div>
@@ -28,7 +29,9 @@ import { PlaylistService } from '../services/playlist.service';
       </div>
       <div class="track-detail-info">
         <div class="marquee">
-          <!-- <h1 [attr.content]="(currentTrack$ | async)?.artist" [marqueeContent]="track.artist">{{ (currentTrack$ | async)?.artist }}</h1> -->
+          <!-- <h1 [attr.content]="(currentTrack$ | async)?.artist"
+          [marqueeContent]="track.artist">
+            {{ (currentTrack$ | async)?.artist }}</h1> -->
         </div>
           <h3>{{ (currentTrack$ | async)?.song }}</h3>
       </div>
@@ -56,6 +59,18 @@ import { PlaylistService } from '../services/playlist.service';
     </div>
   `,
   styles: [`
+    .image-container .pause-state {
+			transform: scale(0.8);
+			transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
+		}
+		.image-container .play-state {
+			transform: scale(1);
+			transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
+		}
+
+    .image-container {
+      text-align: center;
+    }
     .track-detail-panel button {
       border: 0;
       background: transparent;
@@ -69,13 +84,11 @@ import { PlaylistService } from '../services/playlist.service';
     .image-container .pause-state {
       //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
       transform: scale(0.8);
-      //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
       transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
     }
     .play-state {
       //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
       transform: scale(1);
-      //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
       transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
     }
     .track-time-layout {
@@ -132,20 +145,49 @@ import { PlaylistService } from '../services/playlist.service';
 })
 export class AudioPlayerDetailComponent implements OnInit {
   currentTrack$: Observable<Track>;
+  modalHeight: number;
+  percentElapsed;
+  playerStatus;
+  isSeeking = false;
   timeElapsed$: Observable<string>;
   timeRemaining$: Observable<string>;
-  playerStatus;
   constructor(private audioService: AudioService, private playlistService: PlaylistService) { }
 
   ngOnInit() {
     this.currentTrack$ = this.playlistService.getCurrentTrack();
     this.subscribeToPlayerStatus();
+    this.getPercentElapsed$();
     this.getTimeElapsed$();
     this.getTimeRemaining$();
+    this.getModalHeight();
+  }
+
+  getModalHeight() {
+    const modal = document.querySelector('ion-modal');
+    this.modalHeight = modal.offsetHeight;
+  }
+
+  seekAudio(value) {
+    this.isSeeking = false;
+    const position = value / (100 / this.audioService.getAudio().duration);
+    this.audioService.seekAudio(position);
+  }
+
+  setIsSeeking() {
+    this.isSeeking = true;
   }
 
   toggleAudio() {
     this.audioService.toggleAudio();
+  }
+
+  private getPercentElapsed$() {
+    this.audioService.getPercentElapsed()
+      .subscribe(percent => {
+        if (!this.isSeeking) {
+          this.percentElapsed = percent;
+        }
+      });
   }
 
   private getTimeRemaining$() {

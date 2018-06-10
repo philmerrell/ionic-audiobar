@@ -4,16 +4,12 @@ import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'ial-audio-player-detail-modal',
   template: `
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Playlist</ion-title>
-        <ion-button (click)="modal.dismiss()">
-        close
-        </ion-button>
-      </ion-toolbar>
-    </ion-header>
     <ion-content>
+      <ion-button style="right: 5px; position: absolute;" fill="clear" (click)="modal.dismiss()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
       <ial-audio-player-detail></ial-audio-player-detail>
+      <ial-playlist-component></ial-playlist-component>
     </ion-content>
   `,
   styles: [``]
