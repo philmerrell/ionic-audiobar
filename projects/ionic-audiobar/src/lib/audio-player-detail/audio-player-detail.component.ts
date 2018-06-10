@@ -17,8 +17,8 @@ import { PlaylistService } from '../services/playlist.service';
       <div class="track-progress-slider">
         <ion-range
           min="0" max="100"
-          debounce="100"
-          (ionChange)="seekAudio($event)"
+          (ionFocus)="setIsSeeking()"
+          (ionBlur)="seekAudio($event.target.value)"
           [(ngModel)]="percentElapsed">
         </ion-range>
       </div>
@@ -29,7 +29,9 @@ import { PlaylistService } from '../services/playlist.service';
       </div>
       <div class="track-detail-info">
         <div class="marquee">
-          <!-- <h1 [attr.content]="(currentTrack$ | async)?.artist" [marqueeContent]="track.artist">{{ (currentTrack$ | async)?.artist }}</h1> -->
+          <!-- <h1 [attr.content]="(currentTrack$ | async)?.artist"
+          [marqueeContent]="track.artist">
+            {{ (currentTrack$ | async)?.artist }}</h1> -->
         </div>
           <h3>{{ (currentTrack$ | async)?.song }}</h3>
       </div>
@@ -82,13 +84,11 @@ import { PlaylistService } from '../services/playlist.service';
     .image-container .pause-state {
       //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
       transform: scale(0.8);
-      //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
       transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
     }
     .play-state {
       //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
       transform: scale(1);
-      //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
       transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
     }
     .track-time-layout {
@@ -148,6 +148,7 @@ export class AudioPlayerDetailComponent implements OnInit {
   modalHeight: number;
   percentElapsed;
   playerStatus;
+  isSeeking = false;
   timeElapsed$: Observable<string>;
   timeRemaining$: Observable<string>;
   constructor(private audioService: AudioService, private playlistService: PlaylistService) { }
@@ -166,10 +167,14 @@ export class AudioPlayerDetailComponent implements OnInit {
     this.modalHeight = modal.offsetHeight;
   }
 
-  seekAudio(event) {
-    console.log(event);
-    const position = event.value / (100 / this.audioService.getAudio().duration);
+  seekAudio(value) {
+    this.isSeeking = false;
+    const position = value / (100 / this.audioService.getAudio().duration);
     this.audioService.seekAudio(position);
+  }
+
+  setIsSeeking() {
+    this.isSeeking = true;
   }
 
   toggleAudio() {
@@ -178,7 +183,11 @@ export class AudioPlayerDetailComponent implements OnInit {
 
   private getPercentElapsed$() {
     this.audioService.getPercentElapsed()
-      .subscribe(percent => this.percentElapsed = percent);
+      .subscribe(percent => {
+        if (!this.isSeeking) {
+          this.percentElapsed = percent;
+        }
+      });
   }
 
   private getTimeRemaining$() {
