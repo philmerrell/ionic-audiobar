@@ -4,25 +4,28 @@ import { PlaylistService } from '../services/playlist.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'ial-playlist-component',
+  selector: 'ial-playlist',
   template: `
     <ion-list>
       <ion-item-sliding *ngFor="let track of playlist$ | async; let i = $index;">
         <ion-item>
-          <ion-label [ngClass]="{'playing': item === ( currentTrack | async )}">
+          <ion-label [ngClass]="{'playing': track === ( currentTrack | async )}">
             {{ track.song }}
           </ion-label>
         </ion-item>
         <ion-item-options side="start">
-          <ion-item-option>Remove</ion-item-option>
-          <ion-item-option color="danger">Share</ion-item-option>
+          <ion-item-option color="danger" (click)="remove(track)">Remove</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
   `,
-  styles: []
+  styles: [`
+    .playing {
+      font-weight: bold;
+    }
+  `]
 })
-export class PlaylistComponentComponent implements OnInit {
+export class PlaylistComponent implements OnInit {
   playlist$: Observable<Track[]>;
   currentTrack$: Observable<Track>;
   constructor(private playlistService: PlaylistService) { }
@@ -38,6 +41,10 @@ export class PlaylistComponentComponent implements OnInit {
 
   getCurrentTrack$() {
     this.currentTrack$ = this.playlistService.getCurrentTrack();
+  }
+
+  remove(track) {
+    this.playlistService.remove(track);
   }
 
 }

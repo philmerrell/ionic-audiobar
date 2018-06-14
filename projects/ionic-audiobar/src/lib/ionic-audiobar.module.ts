@@ -8,7 +8,7 @@ import { AudioService } from './services/audio.service';
 import { PlaylistService } from './services/playlist.service';
 import { AudioBarPositionDirective } from './audio-bar-position.directive';
 import { AudioPlayerDetailModalComponent } from './audio-player-detail-modal/audio-player-detail-modal.component';
-import { PlaylistComponentComponent } from './playlist-component/playlist-component.component';
+import { PlaylistComponent } from './playlist/playlist.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
     AudioPlayerDetailComponent,
     AudioBarPositionDirective,
     AudioPlayerDetailModalComponent,
-    PlaylistComponentComponent
+    PlaylistComponent
   ],
   exports: [ IonicAudiobarComponent ],
   providers: [

@@ -32,6 +32,14 @@ export class PlaylistService {
     this.currentTrackSubject.next(this.currentTrack);
   }
 
+  public remove(track: Track): void {
+    const index = this.playlist.indexOf(track);
+
+    if (index > -1) {
+      this.playlist.splice(index, 1);
+    }
+  }
+
   // public addTrackToPlaylist(track: Track): void {
   //   this.playlist.push(track);
   //   this.playlistSubject.next(this.playlist);

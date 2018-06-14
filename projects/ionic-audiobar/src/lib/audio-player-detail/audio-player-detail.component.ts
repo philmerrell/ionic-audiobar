@@ -28,12 +28,16 @@ import { PlaylistService } from '../services/playlist.service';
         <div class="track-time-remaining">{{ timeRemaining$ | async }}</div>
       </div>
       <div class="track-detail-info">
-        <div class="marquee">
-          <!-- <h1 [attr.content]="(currentTrack$ | async)?.artist"
-          [marqueeContent]="track.artist">
-            {{ (currentTrack$ | async)?.artist }}</h1> -->
+        <div class="marquee-container">
+          <div class="marquee">
+            <h1 [attr.content]="(currentTrack$ | async)?.artist">
+              {{ (currentTrack$ | async)?.artist }}
+            </h1>
+          </div>
         </div>
+        <div class="marquee">
           <h3>{{ (currentTrack$ | async)?.song }}</h3>
+        </div>
       </div>
       <div class="track-controls-layout">
           <ion-button fill="clear"
@@ -141,6 +145,36 @@ import { PlaylistService } from '../services/playlist.service';
       margin: 0;
       display: inline-block;
     }
+
+    .marquee-container {
+      position: relative;
+    }
+
+    .marquee {
+      margin: 0 auto;
+      white-space: nowrap;
+      overflow: hidden;
+      position: absolute;
+    }
+
+    .marquee h1, h3 {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 5s linear infinite;
+    }
+
+    .marquee2 h1 {
+      animation-delay: 3.5s;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(-100%, 0);
+      }
+    }
   `]
 })
 export class AudioPlayerDetailComponent implements OnInit {
@@ -164,7 +198,8 @@ export class AudioPlayerDetailComponent implements OnInit {
 
   getModalHeight() {
     const modal = document.querySelector('ion-modal');
-    this.modalHeight = modal.offsetHeight;
+    console.log(modal);
+    this.modalHeight = modal.clientHeight;
   }
 
   seekAudio(value) {
