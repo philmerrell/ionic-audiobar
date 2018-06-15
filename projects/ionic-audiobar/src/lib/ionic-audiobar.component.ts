@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 @Component({
   selector: 'ial-ionic-audiobar',
   template: `
-    <div ialAudioBarPosition [offset]="offset" class="audiobar">
+    <div ialAudioBarPosition *ngIf="playlist" [offset]="offset" class="audiobar">
       <ial-audio-player [track]="currentTrack" (ended)="getNextTrack($event)"></ial-audio-player>
     </div>
   `,
@@ -27,7 +27,7 @@ import { of } from 'rxjs';
 })
 export class IonicAudiobarComponent implements OnInit, OnChanges {
 
-  @Input() playlist: Track[];
+  @Input() playlist: Track[] = [];
   @Input() offset;
   @Output() trackChange: EventEmitter<Track> = new EventEmitter();
   currentTrack: Track;

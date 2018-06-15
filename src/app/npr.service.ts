@@ -28,6 +28,7 @@ export class NprService {
     const text = story.teaser.$text;
     const dateString = story.storyDate.$text;
 
+    console.log(title);
     return {
       audioUrl: audio,
       image: image,

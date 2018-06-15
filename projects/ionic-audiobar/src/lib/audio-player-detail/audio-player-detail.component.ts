@@ -14,51 +14,49 @@ import { PlaylistService } from '../services/playlist.service';
         [src]="(currentTrack$ | async)?.image"
         height="90%" />
       </div>
-      <div class="track-progress-slider">
-        <ion-range
-          min="0" max="100"
-          (ionFocus)="setIsSeeking()"
-          (ionBlur)="seekAudio($event.target.value)"
-          [(ngModel)]="percentElapsed">
-        </ion-range>
-      </div>
-      <div class="track-time-layout">
-        <div class="track-time-elapsed">{{ timeElapsed$ | async }}</div>
-        <div class="track-time-spacer"></div>
-        <div class="track-time-remaining">{{ timeRemaining$ | async }}</div>
-      </div>
-      <div class="track-detail-info">
-        <div class="marquee-container">
-          <div class="marquee">
-            <h1 [attr.content]="(currentTrack$ | async)?.artist">
-              {{ (currentTrack$ | async)?.artist }}
-            </h1>
-          </div>
+      <div [style.height.px]="modalHeight / 2" class="track-detail-controls-container">
+        <div class="track-progress-slider">
+          <ion-range
+            min="0" max="100"
+            (ionFocus)="setIsSeeking()"
+            (ionBlur)="seekAudio($event.target.value)"
+            [(ngModel)]="percentElapsed">
+          </ion-range>
         </div>
-        <div class="marquee">
-          <h3>{{ (currentTrack$ | async)?.song }}</h3>
+        <div class="track-time-layout">
+          <div class="track-time-elapsed">{{ timeElapsed$ | async }}</div>
+          <div class="track-time-spacer"></div>
+          <div class="track-time-remaining">{{ timeRemaining$ | async }}</div>
         </div>
-      </div>
-      <div class="track-controls-layout">
-          <ion-button fill="clear"
-            (click)="previousTrack()"
-            [disabled]="playerStatus === 'loading'">
-            <ion-icon name="rewind"></ion-icon>
-          </ion-button>
-          <ion-button
-            fill="clear"
-            size="large"
-            (click)="toggleAudio()" [ngSwitch]="playerStatus" [disabled]="playerStatus === 'loading'" class="controls-pp" type="button">
-            <ion-icon *ngSwitchCase="'paused'" name="play" slot="icon-only"></ion-icon>
-            <ion-icon *ngSwitchCase="'playing'" name="pause" slot="icon-only"></ion-icon>
-            <ion-spinner *ngSwitchCase="'loading'" name="crescent"></ion-spinner>
-          </ion-button>
-          <ion-button
-            fill="clear"
-            (click)="nextTrack(currentTrack$)"
-            [disabled]="playerStatus === 'loading'">
-            <ion-icon name="fastforward"></ion-icon>
-          </ion-button>
+        <div class="track-detail-info">
+          <h1 [attr.content]="(currentTrack$ | async)?.artist">
+            {{ (currentTrack$ | async)?.artist }}
+          </h1>
+          <h3 [attr.content]="(currentTrack$ | async)?.song">
+            {{ (currentTrack$ | async)?.song }}
+          </h3>
+        </div>
+        <div class="track-controls-layout">
+            <ion-button fill="clear"
+              (click)="previousTrack()"
+              [disabled]="playerStatus === 'loading'">
+              <ion-icon name="rewind"></ion-icon>
+            </ion-button>
+            <ion-button
+              fill="clear"
+              size="large"
+              (click)="toggleAudio()" [ngSwitch]="playerStatus" [disabled]="playerStatus === 'loading'" class="controls-pp" type="button">
+              <ion-icon *ngSwitchCase="'paused'" name="play" slot="icon-only"></ion-icon>
+              <ion-icon *ngSwitchCase="'playing'" name="pause" slot="icon-only"></ion-icon>
+              <ion-spinner *ngSwitchCase="'loading'" name="crescent"></ion-spinner>
+            </ion-button>
+            <ion-button
+              fill="clear"
+              (click)="nextTrack(currentTrack$)"
+              [disabled]="playerStatus === 'loading'">
+              <ion-icon name="fastforward"></ion-icon>
+            </ion-button>
+        </div>
       </div>
     </div>
   `,
@@ -74,6 +72,7 @@ import { PlaylistService } from '../services/playlist.service';
 
     .image-container {
       text-align: center;
+      padding: 20px;
     }
     .track-detail-panel button {
       border: 0;
@@ -86,12 +85,10 @@ import { PlaylistService } from '../services/playlist.service';
     }
 
     .image-container .pause-state {
-      //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
       transform: scale(0.8);
       transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
     }
     .play-state {
-      //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
       transform: scale(1);
       transition: 300ms cubic-bezier(0.855, 0.005, 0.175, 1);
     }
@@ -135,36 +132,6 @@ import { PlaylistService } from '../services/playlist.service';
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
-    }
-
-    .track-detail-info  h1 {
-      margin: 0;
-      display: inline-block;
-    }
-    .track-detail-info h3 {
-      margin: 0;
-      display: inline-block;
-    }
-
-    .marquee-container {
-      position: relative;
-    }
-
-    .marquee {
-      margin: 0 auto;
-      white-space: nowrap;
-      overflow: hidden;
-      position: absolute;
-    }
-
-    .marquee h1, h3 {
-      display: inline-block;
-      padding-left: 100%;
-      animation: marquee 5s linear infinite;
-    }
-
-    .marquee2 h1 {
-      animation-delay: 3.5s;
     }
 
     @keyframes marquee {

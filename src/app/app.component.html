@@ -6,7 +6,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list>
+    <ion-list *ngIf="playlist$">
       <ion-item-sliding *ngFor="let item of playlist$ | async; let i = $index;">
         <ion-item>
           <ion-label [ngClass]="{'playing': item === currentTrack}">
