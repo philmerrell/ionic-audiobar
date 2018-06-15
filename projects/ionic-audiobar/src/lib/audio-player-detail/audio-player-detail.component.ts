@@ -55,7 +55,7 @@ import { PlaylistService } from '../services/playlist.service';
           </ion-button>
           <ion-button
             fill="clear"
-            (click)="nextTrack()"
+            (click)="nextTrack(currentTrack$)"
             [disabled]="playerStatus === 'loading'">
             <ion-icon name="fastforward"></ion-icon>
           </ion-button>
@@ -200,6 +200,10 @@ export class AudioPlayerDetailComponent implements OnInit {
     const modal = document.querySelector('ion-modal');
     console.log(modal);
     this.modalHeight = modal.clientHeight;
+  }
+
+  nextTrack(track: Track) {
+    this.playlistService.nextTrack(track);
   }
 
   seekAudio(value) {

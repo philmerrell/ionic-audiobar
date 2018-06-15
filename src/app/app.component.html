@@ -7,7 +7,7 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item-sliding *ngFor="let item of myPlaylist; let i = $index;">
+      <ion-item-sliding *ngFor="let item of playlist$ | async; let i = $index;">
         <ion-item>
           <ion-label [ngClass]="{'playing': item === currentTrack}">
             {{ item.song }}
@@ -20,5 +20,6 @@
       </ion-item-sliding>
     </ion-list>
   </ion-content>
-  <ial-ionic-audiobar [playlist]="myPlaylist" (trackChange)="currentTrack = $event;"></ial-ionic-audiobar>
+  <ial-ionic-audiobar [playlist]="playlist$ | async" (trackChange)="currentTrack = $event;"></ial-ionic-audiobar>
+  <pre> {{ playlist$ | async }}</pre>
 </ion-app>

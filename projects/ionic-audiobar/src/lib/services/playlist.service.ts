@@ -40,6 +40,16 @@ export class PlaylistService {
     }
   }
 
+  public nextTrack(track) {
+    const currentTrackIndex = this.playlist.indexOf(track);
+    if (currentTrackIndex + 1 !== this.playlist.length) {
+      this.setCurrentTrack(this.playlist[currentTrackIndex + 1]);
+    } else {
+        // stop audio
+    }
+
+  }
+
   // public addTrackToPlaylist(track: Track): void {
   //   this.playlist.push(track);
   //   this.playlistSubject.next(this.playlist);
