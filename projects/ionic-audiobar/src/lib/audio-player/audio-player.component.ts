@@ -20,7 +20,7 @@ import { debounceTime } from 'rxjs/operators';
           </ion-button>
         </div>
       </div>
-      <div class="audiobar-info-container">
+      <div (click)="openAudioPlayerDetail()" class="audiobar-info-container">
         <div class="audiobar-info">
           <h3>{{ track.artist }}</h3>
           <h4>{{ track.song }}</h4>
@@ -128,6 +128,7 @@ import { debounceTime } from 'rxjs/operators';
 export class AudioPlayerComponent implements OnInit, OnChanges {
   @Input() track: Track;
   @Output() ended: EventEmitter<Track> = new EventEmitter();
+  @Output() open: EventEmitter<boolean> = new EventEmitter();
 
   timeElapsed$: Observable<string>;
   timeRemaining$: Observable<string>;
@@ -182,6 +183,10 @@ export class AudioPlayerComponent implements OnInit, OnChanges {
   toggleAudio() {
     this.audioService.toggleAudio();
     return false;
+  }
+
+  openAudioPlayerDetail() {
+    this.open.emit(true);
   }
 
 }

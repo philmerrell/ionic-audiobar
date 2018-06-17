@@ -9,10 +9,11 @@ import { PlaylistService } from '../services/playlist.service';
   template: `
     <div class="track-detail-panel">
       <div [style.height.px]="modalHeight / 2" class="image-container">
-        <img [class.pause-state]="playerStatus === 'paused'"
-        [class.play-state]="playerStatus === 'playing'"
-        [src]="(currentTrack$ | async)?.image"
-        height="90%" />
+        <ion-img [class.pause-state]="playerStatus === 'paused'"
+          [class.play-state]="playerStatus === 'playing'"
+          [src]="(currentTrack$ | async)?.image"
+          height="90%">
+        </ion-img>
       </div>
       <div [style.height.px]="modalHeight / 2" class="track-detail-controls-container">
         <div class="track-progress-slider">
@@ -129,6 +130,7 @@ import { PlaylistService } from '../services/playlist.service';
       text-align: center;
     }
     .track-detail-info {
+      padding-left: 10px;
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
@@ -155,7 +157,7 @@ export class AudioPlayerDetailComponent implements OnInit {
   constructor(private audioService: AudioService, private playlistService: PlaylistService) { }
 
   ngOnInit() {
-    this.currentTrack$ = this.playlistService.getCurrentTrack();
+    this.currentTrack$ = this.audioService.getCurrentTrack();
     this.subscribeToPlayerStatus();
     this.getPercentElapsed$();
     this.getTimeElapsed$();

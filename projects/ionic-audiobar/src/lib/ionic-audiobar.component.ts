@@ -3,14 +3,13 @@ import { Track } from './track.model';
 import { PlaylistService } from './services/playlist.service';
 import { ModalController } from '@ionic/angular';
 import { AudioPlayerDetailModalComponent } from './audio-player-detail-modal/audio-player-detail-modal.component';
-import { of } from 'rxjs';
 
 
 @Component({
   selector: 'ial-ionic-audiobar',
   template: `
     <div ialAudioBarPosition *ngIf="playlist" [offset]="offset" class="audiobar">
-      <ial-audio-player [track]="currentTrack" (ended)="getNextTrack($event)"></ial-audio-player>
+      <ial-audio-player [track]="currentTrack" (ended)="getNextTrack($event)" (open)="togglePlayerVisibility()"></ial-audio-player>
     </div>
   `,
   styles: [`
@@ -36,20 +35,21 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
     private playlistService: PlaylistService,
     private modal: ModalController) { }
 
-    @HostListener('click') togglePlayerVisibility() {
-      this.presentModal().then(() => {
-        console.log('present');
-      });
-    }
-
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     const changedPlaylist = changes['playlist'].currentValue;
     if (changedPlaylist) {
+      // TODO: allow for setting index of playlist for current track.
       this.playlistService.setPlaylist(changedPlaylist);
       this.setCurrentTrack(changedPlaylist[0]);
     }
+  }
+
+  togglePlayerVisibility() {
+    this.presentModal().then(() => {
+      console.log('present');
+    });
   }
 
   private setCurrentTrack(track) {
@@ -68,8 +68,7 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
 
   async presentModal() {
     const modal = await this.modal.create({
-      component: AudioPlayerDetailModalComponent,
-      componentProps: { currentTrack$: of(this.currentTrack) }
+      component: AudioPlayerDetailModalComponent
     });
     return await modal.present();
   }

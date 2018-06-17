@@ -2,14 +2,18 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Track } from '../track.model';
 import { PlaylistService } from '../services/playlist.service';
 import { Observable } from 'rxjs';
+import { AudioService } from '../services/audio.service';
 
 @Component({
   selector: 'ial-playlist',
   template: `
     <ion-list>
-      <ion-item-sliding *ngFor="let track of playlist$ | async; let i = $index;">
+      <ion-list-header>
+        <ion-label>Playlist</ion-label>
+      </ion-list-header>
+      <ion-item-sliding (click)="setCurrentTrack(track)" *ngFor="let track of playlist$ | async; let i = $index;">
         <ion-item>
-          <ion-label [ngClass]="{'playing': track === ( currentTrack | async )}">
+          <ion-label [ngClass]="{'playing': track === currentTrack}">
             {{ track.song }}
           </ion-label>
         </ion-item>
@@ -27,24 +31,34 @@ import { Observable } from 'rxjs';
 })
 export class PlaylistComponent implements OnInit {
   playlist$: Observable<Track[]>;
-  currentTrack$: Observable<Track>;
-  constructor(private playlistService: PlaylistService) { }
+  currentTrack: Track;
+  constructor(
+    private playlistService: PlaylistService,
+    private audioService: AudioService) { }
 
   ngOnInit() {
     this.getPlaylist$();
-    this.getCurrentTrack$();
+    this.subscribeToCurrentTrack();
   }
 
   getPlaylist$() {
     this.playlist$ = this.playlistService.getPlaylist();
   }
 
-  getCurrentTrack$() {
-    this.currentTrack$ = this.playlistService.getCurrentTrack();
+  subscribeToCurrentTrack() {
+    this.audioService.getCurrentTrack()
+      .subscribe(track => {
+        console.log(track);
+        this.currentTrack = track;
+      });
   }
 
   remove(track) {
     this.playlistService.remove(track);
+  }
+
+  setCurrentTrack(track: Track) {
+    this.audioService.setCurrentTrack(track);
   }
 
 }
