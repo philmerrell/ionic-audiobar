@@ -48,7 +48,6 @@ export class PlaylistComponent implements OnInit {
   subscribeToCurrentTrack() {
     this.audioService.getCurrentTrack()
       .subscribe(track => {
-        console.log(track);
         this.currentTrack = track;
       });
   }

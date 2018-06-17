@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Track } from '../track.model';
+import { AudioService } from './audio.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,16 @@ import { Track } from '../track.model';
 export class PlaylistService {
   private playlistSubject: BehaviorSubject<Track[]> = new BehaviorSubject([]);
   private playlist = [];
-  private currentTrackSubject: BehaviorSubject<Track> = new BehaviorSubject({} as Track);
-  private currentTrack;
+  private currentTrack: Track;
 
+  constructor(private audioService: AudioService) {
+    this.subscribeToCurrentTrack();
+  }
 
-  constructor() { }
+  public subscribeToCurrentTrack() {
+    this.audioService.getCurrentTrack()
+      .subscribe(track => this.currentTrack = track);
+  }
 
   public getPlaylist(): Observable<Track[]> {
     return this.playlistSubject.asObservable();
@@ -23,15 +29,6 @@ export class PlaylistService {
     this.playlistSubject.next(this.playlist);
   }
 
-  public getCurrentTrack(): Observable<Track> {
-    return this.currentTrackSubject.asObservable();
-  }
-
-  public setCurrentTrack(track: Track): void {
-    this.currentTrack = track;
-    this.currentTrackSubject.next(this.currentTrack);
-  }
-
   public remove(track: Track): void {
     const index = this.playlist.indexOf(track);
 
@@ -40,12 +37,16 @@ export class PlaylistService {
     }
   }
 
-  public nextTrack(track) {
-    const currentTrackIndex = this.playlist.indexOf(track);
+  public nextTrack(): void {
+    const currentTrackIndex = this.playlist.indexOf(this.currentTrack);
+
     if (currentTrackIndex + 1 !== this.playlist.length) {
-      this.setCurrentTrack(this.playlist[currentTrackIndex + 1]);
+      // We are still in bounds of the playlist
+      this.audioService.setCurrentTrack(this.playlist[currentTrackIndex + 1]);
     } else {
-        // stop audio
+      // nextTrack was called on the last track so start the playlist over
+      this.audioService.setCurrentTrack(this.playlist[0]);
+      // this.audioService.pauseAudio();
     }
 
   }

@@ -3,6 +3,7 @@ import { Track } from './track.model';
 import { PlaylistService } from './services/playlist.service';
 import { ModalController } from '@ionic/angular';
 import { AudioPlayerDetailModalComponent } from './audio-player-detail-modal/audio-player-detail-modal.component';
+import { AudioService } from './services/audio.service';
 
 
 @Component({
@@ -33,9 +34,12 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
 
   constructor(
     private playlistService: PlaylistService,
+    private audioService: AudioService,
     private modal: ModalController) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getCurrentTrack();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     const changedPlaylist = changes['playlist'].currentValue;
@@ -52,10 +56,14 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
     });
   }
 
+  private getCurrentTrack() {
+    this.audioService.getCurrentTrack()
+      .subscribe(track => this.currentTrack = track);
+  }
+
   private setCurrentTrack(track) {
     if (track) {
-      this.currentTrack = track;
-      this.playlistService.setCurrentTrack(track);
+      this.audioService.setCurrentTrack(track);
       this.trackChange.emit(track);
     }
   }

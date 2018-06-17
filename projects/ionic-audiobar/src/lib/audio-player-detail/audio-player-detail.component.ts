@@ -172,7 +172,7 @@ export class AudioPlayerDetailComponent implements OnInit {
   }
 
   nextTrack(track: Track) {
-    this.playlistService.nextTrack(track);
+    this.playlistService.nextTrack();
   }
 
   seekAudio(value) {
