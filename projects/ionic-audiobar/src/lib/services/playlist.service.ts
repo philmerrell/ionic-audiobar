@@ -51,6 +51,16 @@ export class PlaylistService {
 
   }
 
+  public previousTrack(): void {
+    const currentTrackIndex = this.playlist.indexOf(this.currentTrack);
+
+    if (currentTrackIndex === 0) {
+      this.audioService.setCurrentTrack(this.playlist[0]);
+    } else {
+      this.audioService.setCurrentTrack(this.playlist[currentTrackIndex - 1]);
+    }
+  }
+
   // public addTrackToPlaylist(track: Track): void {
   //   this.playlist.push(track);
   //   this.playlistSubject.next(this.playlist);

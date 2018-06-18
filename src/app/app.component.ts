@@ -13,6 +13,9 @@ export class AppComponent {
   title = 'app';
 
   constructor(private nprService: NprService) {
+  }
+
+  startNpr() {
     this.playlist$ = this.nprService.getLocalStories();
   }
 

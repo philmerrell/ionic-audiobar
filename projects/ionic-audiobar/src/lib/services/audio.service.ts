@@ -69,7 +69,7 @@ export class AudioService {
     }
   }
 
-  public getAudio(): HTMLAudioElement {
+  public getAudioElement(): HTMLAudioElement {
     return this.audio;
   }
 

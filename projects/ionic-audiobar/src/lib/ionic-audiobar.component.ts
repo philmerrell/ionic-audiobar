@@ -52,7 +52,6 @@ export class IonicAudiobarComponent implements OnInit, OnChanges {
 
   togglePlayerVisibility() {
     this.presentModal().then(() => {
-      console.log('present');
     });
   }
 

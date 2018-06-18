@@ -39,7 +39,6 @@ export class NprService {
 }
 
 private handleResponse = (res) => {
-  console.log(res);
     const stories = res.list.story;
     const trackList = [];
     stories.forEach((story, index) => {
