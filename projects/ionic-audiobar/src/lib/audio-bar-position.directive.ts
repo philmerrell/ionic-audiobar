@@ -17,11 +17,9 @@ export class AudioBarPositionDirective implements OnChanges {
   }
 
   @HostListener('click') togglePlayerVisibility() {
-    console.log('clicked');
   }
 
   setOffset(offset) {
-    console.log(offset);
     this.el.nativeElement.style.bottom = offset + 'px';
   }
 

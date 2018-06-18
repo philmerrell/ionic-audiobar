@@ -13,6 +13,7 @@ import { AudioService } from '../services/audio.service';
       </ion-list-header>
       <ion-item-sliding (click)="setCurrentTrack(track)" *ngFor="let track of playlist$ | async; let i = $index;">
         <ion-item>
+          <ion-icon *ngIf="track === currentTrack" name="volume-high" slot="start"></ion-icon>
           <ion-label [ngClass]="{'playing': track === currentTrack}">
             {{ track.song }}
           </ion-label>
@@ -53,6 +54,9 @@ export class PlaylistComponent implements OnInit {
   }
 
   remove(track) {
+    if (track === this.currentTrack) {
+      this.playlistService.nextTrack();
+    }
     this.playlistService.remove(track);
   }
 

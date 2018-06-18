@@ -79,7 +79,19 @@ export class AudioService {
   }
 
   public playAudio(): void {
-    this.audio.play();
+
+    const playPromise = this.audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise.then(_ => {
+        // Automatic playback started!
+        // Show playing UI.
+      })
+      .catch(error => {
+        // Auto-play was prevented
+        // Show paused UI.
+      });
+    }
   }
 
   public pauseAudio(): void {

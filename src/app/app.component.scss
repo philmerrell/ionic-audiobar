@@ -1,0 +1,17 @@
+.playing {
+  font-weight: bold;
+}
+
+ion-modal {
+  ion-backdrop {
+      visibility: visible;
+  }
+  .modal-wrapper {
+      width: 86%;
+      height: 86%;
+      margin: 7%;
+      position: absolute;
+      border-radius: 13px;
+      overflow: hidden;
+  }
+}

@@ -9,9 +9,11 @@ import { PlaylistService } from '../services/playlist.service';
   template: `
     <div class="track-detail-panel">
       <div [style.height.px]="modalHeight / 2" class="image-container">
-        <ion-img [class.pause-state]="playerStatus === 'paused'"
+        <ion-img
+          [class.pause-state]="playerStatus === 'paused'"
           [class.play-state]="playerStatus === 'playing'"
           [src]="(currentTrack$ | async)?.image"
+          (ionImgDidLoad)="imageLoadedHander($event)"
           height="90%">
         </ion-img>
       </div>
@@ -151,6 +153,7 @@ export class AudioPlayerDetailComponent implements OnInit {
   modalHeight: number;
   percentElapsed;
   playerStatus;
+  imageLoaded = false;
   isSeeking = false;
   timeElapsed$: Observable<string>;
   timeRemaining$: Observable<string>;
@@ -167,15 +170,16 @@ export class AudioPlayerDetailComponent implements OnInit {
 
   getModalHeight() {
     const modal = document.querySelector('ion-modal');
-    console.log(modal);
     this.modalHeight = modal.clientHeight;
   }
 
   nextTrack() {
+    this.imageLoaded = false;
     this.playlistService.nextTrack();
   }
 
   previousTrack() {
+    this.imageLoaded = false;
     this.playlistService.previousTrack();
   }
 
@@ -191,6 +195,10 @@ export class AudioPlayerDetailComponent implements OnInit {
 
   toggleAudio() {
     this.audioService.toggleAudio();
+  }
+
+  imageLoadedHander(event) {
+    this.imageLoaded = true;
   }
 
   private getPercentElapsed$() {

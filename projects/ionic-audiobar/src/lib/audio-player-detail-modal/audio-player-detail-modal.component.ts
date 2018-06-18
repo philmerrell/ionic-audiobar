@@ -21,21 +21,24 @@ import { ModalController } from '@ionic/angular';
       border-top-right-radius: 25px;
     }
 
-    .backdrop-md {
-      background-color: var(--ion-backdrop-md-color,var(--ion-backdrop-color,#000));
+    ion-modal {
+
+        ion-backdrop {
+            visibility: visible;
+            opacity: 0.75;
+            z-index: 0;
+        }
     }
   `]
 })
 export class AudioPlayerDetailModalComponent implements OnInit {
   constructor(public zone: NgZone, public modal: ModalController) { }
 
-  ngOnInit() {
-    console.log(this.modal);
-  }
+  ngOnInit() {}
 
   scrollHandler(event) {
     this.zone.run(() => {
-      console.log(`ScrollEvent: ${event}`);
+      console.log(`ScrollEvent:`, event);
 
       // since scrollAmount is data-binded,
       // the update needs to happen in zone
