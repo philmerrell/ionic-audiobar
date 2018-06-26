@@ -13,6 +13,7 @@ import { PlaylistService } from '../services/playlist.service';
           <ion-icon name="arrow-down" slot="icon-only"></ion-icon>
         </ion-button>
       </div>
+
       <!-- // TODO: Find better image sizing solution -->
       <div class="background-texture">
         <div class="background-texture-image">
@@ -28,13 +29,14 @@ import { PlaylistService } from '../services/playlist.service';
           height="90%">
         </ion-img>
       </div>
+
       <div [style.height.px]="modalHeight * 0.25" class="track-detail-controls-container">
         <div class="track-progress-slider">
           <ion-range
-            class="md"
             min="0" max="100"
             (ionFocus)="setIsSeeking()"
             (ionBlur)="seekAudio($event.target.value)"
+            (ionChange)="calculateSeekTime($event)"
             [(ngModel)]="percentElapsed">
           </ion-range>
         </div>
@@ -44,9 +46,21 @@ import { PlaylistService } from '../services/playlist.service';
           <div class="track-time-remaining">{{ timeRemaining$ | async }}</div>
         </div>
         <div class="track-detail-info">
-          <h3 [attr.content]="(currentTrack$ | async)?.artist">
-            {{ (currentTrack$ | async)?.artist }}
-          </h3>
+          <div class="marquee-container">
+            <div class="marquee-container-inner">
+
+              <h4 style="padding-right: 50px; display: inline-block; animation-play-state: running;
+              animation-delay: 4s;
+              animation-duration: 14s; max-width: none;" class="animate">
+                {{ (currentTrack$ | async)?.artist }}
+              </h4>
+              <h4 style="padding-right: 50px; display: inline-block; animation-play-state: running;
+                animation-delay: 4s;
+                animation-duration: 14s; max-width: none;" class="animate">
+                {{ (currentTrack$ | async)?.artist }}
+              </h4>
+            </div>
+          </div>
           <h5 [attr.content]="(currentTrack$ | async)?.song">
             {{ (currentTrack$ | async)?.song }}
           </h5>
@@ -208,12 +222,42 @@ import { PlaylistService } from '../services/playlist.service';
       overflow: hidden;
     }
 
+    .marquee-container {
+      white-space: nowrap;
+      display: inline-block;
+      margin: 0;
+      width: 100%;
+      max-width: none;
+      height: auto;
+    }
+
+    .marquee-container-inner {
+      white-space: nowrap;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .animate {
+      -webkit-animation-name: marquee;
+      -moz-animation-name: marquee;
+      animation-name: marquee;
+      -webkit-animation-play-state: paused;
+      -moz-animation-play-state: paused;
+      animation-play-state: paused;
+      -webkit-animation-iteration-count: infinite;
+      -moz-animation-iteration-count: infinite;
+      animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+      -moz-animation-timing-function: linear;
+      animation-timing-function: linear;
+    }
+
     @keyframes marquee {
       0% {
-        transform: translate(0, 0);
+        transform: translateX(0);
       }
       100% {
-        transform: translate(-100%, 0);
+        transform: translateX(-100%);
       }
     }
   `]
@@ -237,6 +281,14 @@ export class AudioPlayerDetailComponent implements OnInit {
     this.getTimeElapsed$();
     this.getTimeRemaining$();
     this.getModalHeight();
+  }
+
+  /**
+   *
+   * */
+  calculateSeekTime(event) {
+    const rangeValue = event.detail.value;
+    // this.audioService.setSeekTime(rangeValue);
   }
 
   closeDetail() {

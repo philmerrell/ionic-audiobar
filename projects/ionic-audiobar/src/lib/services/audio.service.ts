@@ -9,12 +9,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AudioService {
 
   public audio: HTMLAudioElement;
-  public timeElapsed: BehaviorSubject<string> = new BehaviorSubject('00:00');
-  public timeRemaining: BehaviorSubject<string> = new BehaviorSubject('-00:00');
+  public calculatedSeekTime: BehaviorSubject<string> = new BehaviorSubject('00:00');
+  public currentTrack: BehaviorSubject<Track> = new BehaviorSubject({} as Track);
   public percentElapsed: BehaviorSubject<number> = new BehaviorSubject(0);
   public percentLoaded: BehaviorSubject<number> = new BehaviorSubject(0);
   public playerStatus: BehaviorSubject<string> = new BehaviorSubject('paused');
-  public currentTrack: BehaviorSubject<Track> = new BehaviorSubject({} as Track);
+  public timeElapsed: BehaviorSubject<string> = new BehaviorSubject('00:00');
+  public timeRemaining: BehaviorSubject<string> = new BehaviorSubject('-00:00');
 
   constructor() {
     this.audio = new Audio();
@@ -67,6 +68,10 @@ export class AudioService {
         this.playerStatus.next('paused');
         break;
     }
+  }
+
+  public calculateSeekTime(value): Observable<string> {
+    
   }
 
   public getAudioElement(): HTMLAudioElement {
