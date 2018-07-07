@@ -14,13 +14,18 @@ import { PlaylistService } from '../services/playlist.service';
         </ion-button>
       </div>
 
-      <!-- // TODO: Find better image sizing solution -->
+      <!-- // TODO: Find better image sizing solution  -->
       <div class="background-texture">
         <div class="background-texture-image">
           <img [src]="(currentTrack$ | async)?.image">
         </div>
       </div>
-      <div [style.height.px]="modalHeight / 2" class="image-container">
+
+      <div [style.height.px]="modalHeight / 2" style="padding: 20px;">
+        <ial-playlist-slides></ial-playlist-slides>
+      </div>
+
+      <!-- <div [style.height.px]="modalHeight / 2" class="image-container">
         <ion-img
           [class.pause-state]="playerStatus === 'paused'"
           [class.play-state]="playerStatus === 'playing'"
@@ -28,7 +33,7 @@ import { PlaylistService } from '../services/playlist.service';
           (ionImgDidLoad)="imageLoadedHander($event)"
           height="90%">
         </ion-img>
-      </div>
+      </div> -->
 
       <div [style.height.px]="modalHeight * 0.25" class="track-detail-controls-container">
         <div class="track-progress-slider">
@@ -41,7 +46,10 @@ import { PlaylistService } from '../services/playlist.service';
           </ion-range>
         </div>
         <div class="track-time-layout">
-          <div class="track-time-elapsed">{{ timeElapsed$ | async }}</div>
+          <div class="track-time-elapsed">
+            <span *ngIf="!isSeeking">{{ audioElement.currentTime | timeElapsed }}</span>
+            <span *ngIf="isSeeking">{{ seekTime | timeElapsed }}</span>
+          </div>
           <div class="track-time-spacer"></div>
           <div class="track-time-remaining">{{ timeRemaining$ | async }}</div>
         </div>
@@ -264,21 +272,24 @@ import { PlaylistService } from '../services/playlist.service';
 })
 export class AudioPlayerDetailComponent implements OnInit {
   @Output() close: EventEmitter<boolean> = new EventEmitter();
+  audioElement: HTMLAudioElement;
   currentTrack$: Observable<Track>;
   modalHeight: number;
   percentElapsed;
   playerStatus;
   imageLoaded = false;
   isSeeking = false;
-  timeElapsed$: Observable<string>;
+  seekTime = 0;
   timeRemaining$: Observable<string>;
+
   constructor(private audioService: AudioService, private playlistService: PlaylistService) { }
 
   ngOnInit() {
     this.currentTrack$ = this.audioService.getCurrentTrack();
+    this.audioElement = this.audioService.getAudioElement();
     this.subscribeToPlayerStatus();
     this.getPercentElapsed$();
-    this.getTimeElapsed$();
+    // this.getTimeElapsed$();
     this.getTimeRemaining$();
     this.getModalHeight();
   }
@@ -287,8 +298,10 @@ export class AudioPlayerDetailComponent implements OnInit {
    *
    * */
   calculateSeekTime(event) {
-    const rangeValue = event.detail.value;
-    // this.audioService.setSeekTime(rangeValue);
+    if (this.isSeeking) {
+      const rangeValue = event.detail.value;
+      this.seekTime = this.audioService.getCalculatedSeekTime(rangeValue);
+    }
   }
 
   closeDetail() {
@@ -341,9 +354,9 @@ export class AudioPlayerDetailComponent implements OnInit {
     this.timeRemaining$ = this.audioService.getTimeRemaining();
   }
 
-  private getTimeElapsed$() {
-    this.timeElapsed$ = this.audioService.getTimeElapsed();
-  }
+  // private getTimeElapsed$() {
+  //   this.timeElapsed$ = this.audioService.getTimeElapsed();
+  // }
 
   private subscribeToPlayerStatus() {
     this.audioService.getPlayerStatus()

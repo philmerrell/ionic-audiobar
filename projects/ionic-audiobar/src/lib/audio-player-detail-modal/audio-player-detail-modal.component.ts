@@ -4,7 +4,9 @@ import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'ial-audio-player-detail-modal',
   template: `
-    <ion-content (pandown)="scrollHandler($event)">
+    <ion-content
+      [scrollEvents]="true"
+      (ionScroll)="scrollHandler($event)">
       <ial-audio-player-detail (close)="modal.dismiss()"></ial-audio-player-detail>
       <ial-playlist></ial-playlist>
     </ion-content>
@@ -27,8 +29,10 @@ export class AudioPlayerDetailModalComponent implements OnInit {
 
   // TODO: Refactor into directive called scrollCloser
   scrollHandler(event) {
-    console.log(event);
-    this.zone.run(() => {});
+    this.zone.run(() => {
+      console.log(event);
+      
+    });
 
   }
 

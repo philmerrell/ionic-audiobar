@@ -70,8 +70,13 @@ export class AudioService {
     }
   }
 
-  public calculateSeekTime(value): Observable<string> {
-    
+  public getCalculatedSeekTime(value): number {
+    const duration = this.getAudioElement().duration;
+    const seconds = Math.floor(value % 60),
+      displaySecs = (seconds < 10) ? '0' + seconds : seconds,
+      minutes     = Math.floor((value / 60) % 60),
+      displayMins = (minutes < 10) ? '0' + minutes : minutes;
+    return value * duration / 100;
   }
 
   public getAudioElement(): HTMLAudioElement {

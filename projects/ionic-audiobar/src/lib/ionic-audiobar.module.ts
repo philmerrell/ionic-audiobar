@@ -10,6 +10,9 @@ import { AudioBarPositionDirective } from './audio-bar-position.directive';
 import { AudioPlayerDetailModalComponent } from './audio-player-detail-modal/audio-player-detail-modal.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { FormsModule } from '@angular/forms';
+import { PlaylistSlidesComponent } from './playlist-slides/playlist-slides.component';
+import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
+import { TimeRemainingPipe } from './pipes/time-remaining.pipe';
 
 @NgModule({
   imports: [
@@ -23,7 +26,10 @@ import { FormsModule } from '@angular/forms';
     AudioPlayerDetailComponent,
     AudioBarPositionDirective,
     AudioPlayerDetailModalComponent,
-    PlaylistComponent
+    PlaylistComponent,
+    PlaylistSlidesComponent,
+    TimeElapsedPipe,
+    TimeRemainingPipe
   ],
   exports: [ IonicAudiobarComponent ],
   providers: [
