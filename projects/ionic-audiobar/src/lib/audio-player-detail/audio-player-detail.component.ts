@@ -51,7 +51,9 @@ import { PlaylistService } from '../services/playlist.service';
             <span *ngIf="isSeeking">{{ seekTime | timeElapsed }}</span>
           </div>
           <div class="track-time-spacer"></div>
-          <div class="track-time-remaining">{{ timeRemaining$ | async }}</div>
+          <div class="track-time-remaining">
+            <span>{{ audioElement.currentTime | timeRemaining:audioElement.duration }}</span>
+          </div>
         </div>
         <div class="track-detail-info">
           <div class="marquee-container">
@@ -280,7 +282,6 @@ export class AudioPlayerDetailComponent implements OnInit {
   imageLoaded = false;
   isSeeking = false;
   seekTime = 0;
-  timeRemaining$: Observable<string>;
 
   constructor(private audioService: AudioService, private playlistService: PlaylistService) { }
 
@@ -289,8 +290,6 @@ export class AudioPlayerDetailComponent implements OnInit {
     this.audioElement = this.audioService.getAudioElement();
     this.subscribeToPlayerStatus();
     this.getPercentElapsed$();
-    // this.getTimeElapsed$();
-    this.getTimeRemaining$();
     this.getModalHeight();
   }
 
@@ -349,14 +348,6 @@ export class AudioPlayerDetailComponent implements OnInit {
         }
       });
   }
-
-  private getTimeRemaining$() {
-    this.timeRemaining$ = this.audioService.getTimeRemaining();
-  }
-
-  // private getTimeElapsed$() {
-  //   this.timeElapsed$ = this.audioService.getTimeElapsed();
-  // }
 
   private subscribeToPlayerStatus() {
     this.audioService.getPlayerStatus()

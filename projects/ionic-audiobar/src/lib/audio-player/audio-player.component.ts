@@ -130,8 +130,8 @@ export class AudioPlayerComponent implements OnInit, OnChanges {
   @Output() ended: EventEmitter<Track> = new EventEmitter();
   @Output() open: EventEmitter<boolean> = new EventEmitter();
 
-  timeElapsed$: Observable<string>;
-  timeRemaining$: Observable<string>;
+  // timeElapsed$: Observable<string>;
+  // timeRemaining$: Observable<string>;
   percentElapsed$: Observable<number>;
   percentLoaded$: Observable<number>;
   playerStatus: string;
@@ -142,8 +142,8 @@ export class AudioPlayerComponent implements OnInit, OnChanges {
     this.getPercentElapsed();
     this.getPercentLoaded();
     this.getPlayerStatus();
-    this.getTimeElapsed();
-    this.getTimeRemaining();
+    // this.getTimeElapsed();
+    // this.getTimeRemaining();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -153,13 +153,13 @@ export class AudioPlayerComponent implements OnInit, OnChanges {
     }
   }
 
-  getTimeElapsed() {
-    this.timeElapsed$ = this.audioService.getTimeElapsed();
-  }
+  // getTimeElapsed() {
+  //   this.timeElapsed$ = this.audioService.getTimeElapsed();
+  // }
 
-  getTimeRemaining() {
-    this.timeRemaining$ = this.audioService.getTimeRemaining();
-  }
+  // getTimeRemaining() {
+  //   this.timeRemaining$ = this.audioService.getTimeRemaining();
+  // }
 
   getPercentElapsed() {
     this.percentElapsed$ = this.audioService.getPercentElapsed();

@@ -9,13 +9,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AudioService {
 
   public audio: HTMLAudioElement;
-  public calculatedSeekTime: BehaviorSubject<string> = new BehaviorSubject('00:00');
   public currentTrack: BehaviorSubject<Track> = new BehaviorSubject({} as Track);
   public percentElapsed: BehaviorSubject<number> = new BehaviorSubject(0);
   public percentLoaded: BehaviorSubject<number> = new BehaviorSubject(0);
   public playerStatus: BehaviorSubject<string> = new BehaviorSubject('paused');
-  public timeElapsed: BehaviorSubject<string> = new BehaviorSubject('00:00');
-  public timeRemaining: BehaviorSubject<string> = new BehaviorSubject('-00:00');
 
   constructor() {
     this.audio = new Audio();
@@ -34,9 +31,7 @@ export class AudioService {
   private calculateTime = (evt) => {
     const ct = this.audio.currentTime;
     const d = this.audio.duration;
-    this.setTimeElapsed(ct);
     this.setPercentElapsed(d, ct);
-    this.setTimeRemaining(d, ct);
   }
 
   private calculatePercentLoaded = (evt) => {
@@ -72,10 +67,6 @@ export class AudioService {
 
   public getCalculatedSeekTime(value): number {
     const duration = this.getAudioElement().duration;
-    const seconds = Math.floor(value % 60),
-      displaySecs = (seconds < 10) ? '0' + seconds : seconds,
-      minutes     = Math.floor((value / 60) % 60),
-      displayMins = (minutes < 10) ? '0' + minutes : minutes;
     return value * duration / 100;
   }
 
@@ -124,32 +115,6 @@ export class AudioService {
 
   }
 
-  private setTimeElapsed(ct: number): void {
-    const seconds = Math.floor(ct % 60),
-      displaySecs = (seconds < 10) ? '0' + seconds : seconds,
-      minutes     = Math.floor((ct / 60) % 60),
-      displayMins = (minutes < 10) ? '0' + minutes : minutes;
-
-    this.timeElapsed.next(displayMins + ':' + displaySecs);
-  }
-
-  private setTimeRemaining(d: number, t: number): void {
-    let remaining;
-    const timeLeft = d - t,
-      seconds = Math.floor(timeLeft % 60) || 0,
-      remainingSeconds = seconds < 10 ? '0' + seconds : seconds,
-      minutes = Math.floor((timeLeft / 60) % 60) || 0,
-      remainingMinutes = minutes < 10 ? '0' + minutes : minutes,
-      hours = Math.floor(((timeLeft / 60) / 60) % 60) || 0;
-
-    if (hours === 0) {
-      remaining = '-' + remainingMinutes + ':' + remainingSeconds;
-    } else {
-      remaining = '-' + hours + ':' + remainingMinutes + ':' + remainingSeconds;
-    }
-    this.timeRemaining.next(remaining);
-  }
-
   private setPercentElapsed(d: number, ct: number): void {
     this.percentElapsed.next((Math.floor((100 / d) * ct)) || 0);
   }
@@ -164,14 +129,6 @@ export class AudioService {
 
   public getPercentElapsed(): Observable<number> {
     return this.percentElapsed.asObservable();
-  }
-
-  public getTimeElapsed(): Observable<string> {
-    return this.timeElapsed.asObservable();
-  }
-
-  public getTimeRemaining(): Observable<string> {
-    return this.timeRemaining.asObservable();
   }
 
   public getPlayerStatus(): Observable<string> {

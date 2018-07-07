@@ -31,7 +31,6 @@ export class AudioPlayerDetailModalComponent implements OnInit {
   scrollHandler(event) {
     this.zone.run(() => {
       console.log(event);
-      
     });
 
   }
